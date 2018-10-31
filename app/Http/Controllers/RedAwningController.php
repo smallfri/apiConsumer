@@ -82,18 +82,18 @@ class RedAwningController extends Controller
 
             foreach ($listings AS $listing) {
 
-                $Listing = new RAListing();
-                $Listing->listing_id = $listing['listing_id'];
-                $Listing->url_alias = $listing['url_alias'];
-                $Listing->created = $listing['created']; //object
-                $Listing->updated = $listing['updated']; //object
-                $Listing->cico_times = json_encode($listing['cico_times']); //object
-                $Listing->price = json_encode($listing['price']); //object
-                $Listing->status = json_encode($listing['status']); //object
-                $Listing->photos = json_encode($listing['photos']); //object
-                $Listing->policies = json_encode($listing['policies']); //object
-                $Listing->repconfig = json_encode($listing['repconfig']); //object
-                $Listing->save();
+                RAListing::updateOrCreate([
+                    'listing_id' => $listing['listing_id'],
+                    'url_alias' => $listing['url_alias'],
+                    'created' => $listing['created'], 
+                    'updated' => $listing['updated'], 
+                    'cico_times' => json_encode($listing['cico_times']), 
+                    'price' => json_encode($listing['price']), 
+                    'status' => json_encode($listing['status']), 
+                    'photos' => json_encode($listing['photos']), 
+                    'policies' => json_encode($listing['policies']), 
+                    'repconfig' => json_encode($listing['repconfig']) 
+                ]);
 
                 $Content = new RAContent();
                 $Content->redawning_listing_id = $listing['listing_id'];
