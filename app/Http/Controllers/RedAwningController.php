@@ -167,10 +167,12 @@ class RedAwningController extends Controller
                     }
 
                     foreach ($listing['availability'] as $price_period) {
-                        $Price = new RAAvailability();
-                        $Price->redawning_listing_id = $listing['listing_id'];
-                        $Price->period = json_encode($price_period['period']);
-                        $Price->save();
+
+                        RAAvailability::updateOrCreate([
+                            'redawning_listing_id' => $listing['listing_id'],
+                            'period' => json_encode($price_period['period'])
+                        ]);
+
                     }
 
 
