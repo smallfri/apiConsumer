@@ -122,12 +122,11 @@ class RedAwningController extends Controller
                     'square_feet' => $listing['content']['square_feet']
                 ]);
 
-                foreach($listing['content']['room_configurations'] AS $photo)
-                {
-                        $RoomConfig = new RARoomConfiguration();
-                        $RoomConfig->name = $photo['name'];
-                        $RoomConfig->beds = json_encode($photo['beds']);
-                        $RoomConfig->save();
+                foreach ($listing['content']['room_configurations'] AS $photo) {
+                    RAPhoto::updateOrCreate([
+                        'name' => $photo['name'],
+                        'beds' => json_encode($photo['beds'])
+                    ]);
                 }
 
                 foreach($listing['content']['photos'] AS $photo)
