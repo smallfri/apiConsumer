@@ -132,16 +132,15 @@ class RedAwningController extends Controller
 
                 foreach($listing['content']['photos'] AS $photo)
                 {
-                    $Photo = new RAPhoto();
-                    $Photo->redawning_listing_id = $listing['listing_id'];
-                    $Photo->url = $photo['url'];
-                    $Photo->tags = json_encode($photo['tags']);
-                    $Photo->title = $photo['title'];
-                    $Photo->width = $photo['width'];
-                    $Photo->height = $photo['height'];
-                    $Photo->timestamp = $photo['timestamp'];
-                    $Photo->save();
-                }
+                    RAPhoto::updateOrCreate([
+                        'redawning_listing_id' => $listing['listing_id'],
+                        'url' => $photo['url'],
+                        'tags' => json_encode($photo['tags']),
+                        'title' => $photo['title'],
+                        'width' => $photo['width'],
+                        'height' => $photo['height'],
+                        'timestamp' => $photo['timestamp']
+                        ]);
 
                 foreach ($listing['cico'] as $cico) {
                     RACico::updateOrCreate([
