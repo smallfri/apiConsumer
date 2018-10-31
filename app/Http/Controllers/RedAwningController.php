@@ -21,6 +21,7 @@ use SoapBox\Formatter\Formatter;
 class RedAwningController extends Controller
 {
     public $url;
+
     /**
      * Create a new controller instance.
      *
@@ -41,10 +42,10 @@ class RedAwningController extends Controller
     {
         // Setting the HTTP Request Headers
         $request_headers = array();
-        $request_headers[] = 'x-api-key: '.env('RedAwningPubKey');
+        $request_headers[] = 'x-api-key: ' . env('RedAwningPubKey');
 
         // Performing the HTTP request
-        $ch = curl_init($this->url.$endpoint);
+        $ch = curl_init($this->url . $endpoint);
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, $request_headers);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -71,7 +72,7 @@ class RedAwningController extends Controller
             $random = rand(1000, 10);
             // Performing the HTTP request
 
-            $ch = curl_init($this->url.'/'.$endpoint.'?limit=' . $limit . '&offset=' . $offset . '&tid=' . $random);
+            $ch = curl_init($this->url . '/' . $endpoint . '?limit=' . $limit . '&offset=' . $offset . '&tid=' . $random);
             curl_setopt($ch, CURLOPT_HTTPHEADER, $request_headers);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
@@ -85,14 +86,14 @@ class RedAwningController extends Controller
                 RAListing::updateOrCreate([
                     'listing_id' => $listing['listing_id'],
                     'url_alias' => $listing['url_alias'],
-                    'created' => $listing['created'], 
-                    'updated' => $listing['updated'], 
-                    'cico_times' => json_encode($listing['cico_times']), 
-                    'price' => json_encode($listing['price']), 
-                    'status' => json_encode($listing['status']), 
-                    'photos' => json_encode($listing['photos']), 
-                    'policies' => json_encode($listing['policies']), 
-                    'repconfig' => json_encode($listing['repconfig']) 
+                    'created' => $listing['created'],
+                    'updated' => $listing['updated'],
+                    'cico_times' => json_encode($listing['cico_times']),
+                    'price' => json_encode($listing['price']),
+                    'status' => json_encode($listing['status']),
+                    'photos' => json_encode($listing['photos']),
+                    'policies' => json_encode($listing['policies']),
+                    'repconfig' => json_encode($listing['repconfig'])
                 ]);
 
                 RAContent::updateOrCreate([
@@ -123,14 +124,13 @@ class RedAwningController extends Controller
                 ]);
 
                 foreach ($listing['content']['room_configurations'] AS $photo) {
-                    RAPhoto::updateOrCreate([
+                    RARoomConfiguration::updateOrCreate([
                         'name' => $photo['name'],
                         'beds' => json_encode($photo['beds'])
                     ]);
                 }
 
-                foreach($listing['content']['photos'] AS $photo)
-                {
+                foreach ($listing['content']['photos'] AS $photo) {
                     RAPhoto::updateOrCreate([
                         'redawning_listing_id' => $listing['listing_id'],
                         'url' => $photo['url'],
@@ -139,91 +139,92 @@ class RedAwningController extends Controller
                         'width' => $photo['width'],
                         'height' => $photo['height'],
                         'timestamp' => $photo['timestamp']
-                        ]);
-
-                foreach ($listing['cico'] as $cico) {
-                    RACico::updateOrCreate([
-                        'redawning_listing_id' => $listing['listing_id'],
-                        'start_date' => $cico['start_date'],
-                        'end_date' => $cico['end_date'],
-                        'check_in_allowed' => json_encode($cico['check_in_allowed']),
-                        'check_out_allowed' => json_encode($cico['check_out_allowed'])
                     ]);
 
+                    foreach ($listing['cico'] as $cico) {
+                        RACico::updateOrCreate([
+                            'redawning_listing_id' => $listing['listing_id'],
+                            'start_date' => $cico['start_date'],
+                            'end_date' => $cico['end_date'],
+                            'check_in_allowed' => json_encode($cico['check_in_allowed']),
+                            'check_out_allowed' => json_encode($cico['check_out_allowed'])
+                        ]);
+
+                    }
+
+                    foreach ($listing['price_periods'] as $price_period) {
+
+                        RAPricePeriod::updateOrCreate([
+                            'redawning_listing_id' => $listing['listing_id'],
+                            'period_start' => $price_period['period_start'],
+                            'period_end' => $price_period['period_end'],
+                            'weekday_price' => $price_period['weekday_price'],
+                            'weekend_price' => $price_period['weekend_price'],
+                            'weekly_price' => $price_period['weekly_price'],
+                            'minstay' => $price_period['minstay'],
+                            'name' => $price_period['name']
+                        ]);
+                    }
+
+                    foreach ($listing['availability'] as $price_period) {
+                        $Price = new RAAvailability();
+                        $Price->redawning_listing_id = $listing['listing_id'];
+                        $Price->period = json_encode($price_period['period']);
+                        $Price->save();
+                    }
+
+
+                }
+            }
+
+            return true;
+        }
+
+        public
+        function listings()
+        {
+            return $this->absorbListings('listings');
+        }
+
+        public
+        function changes()
+        {
+            return $this->absorbListings('changes');
+        }
+
+        function get_headers_from_curl_response($response)
+        {
+            $headers = array();
+
+            $header_text = substr($response, 0, strpos($response, "\r\n\r\n"));
+
+            foreach (explode("\r\n", $header_text) as $i => $line)
+                if ($i === 0)
+                    $headers['http_code'] = $line;
+                else {
+                    list ($key, $value) = explode(': ', $line);
+
+                    $headers[$key] = $value;
                 }
 
-                foreach($listing['price_periods'] as $price_period)
-                {
-                    $Price = new RAPricePeriod();
-                    $Price->redawning_listing_id = $listing['listing_id'];
-                    $Price->period_start = $price_period['period_start'];
-                    $Price->period_end = $price_period['period_end'];
-                    $Price->weekday_price = $price_period['weekday_price'];
-                    $Price->weekend_price = $price_period['weekend_price'];
-                    $Price->weekly_price = $price_period['weekly_price'];
-                    $Price->minstay = $price_period['minstay'];
-                    $Price->name = $price_period['name'];
-                    $Price->save();
+            return $headers;
+        }
+
+        public
+        function array_to_xml($data, &$xml_data)
+        {
+            foreach ($data as $key => $value) {
+                if (is_numeric($key)) {
+                    $key = 'item' . $key; //dealing with <0/>..<n/> issues
                 }
-
-                foreach($listing['availability'] as $price_period)
-                {
-                    $Price = new RAAvailability();
-                    $Price->redawning_listing_id = $listing['listing_id'];
-                    $Price->period = json_encode($price_period['period']);
-                    $Price->save();
+                if (is_array($value)) {
+                    $subnode = $xml_data->addChild($key);
+                    $this->array_to_xml($value, $subnode);
+                } else {
+                    $xml_data->addChild("$key", htmlspecialchars("$value"));
                 }
-
-
-
             }
         }
 
-        return true;
+
     }
-
-    public function listings()
-    {
-        return $this->absorbListings('listings');
-    }
-
-    public function changes()
-    {
-       return $this->absorbListings('changes');
-    }
-
-    function get_headers_from_curl_response($response)
-    {
-        $headers = array();
-
-        $header_text = substr($response, 0, strpos($response, "\r\n\r\n"));
-
-        foreach (explode("\r\n", $header_text) as $i => $line)
-            if ($i === 0)
-                $headers['http_code'] = $line;
-            else {
-                list ($key, $value) = explode(': ', $line);
-
-                $headers[$key] = $value;
-            }
-
-        return $headers;
-    }
-
-    public function array_to_xml($data, &$xml_data)
-    {
-        foreach ($data as $key => $value) {
-            if (is_numeric($key)) {
-                $key = 'item' . $key; //dealing with <0/>..<n/> issues
-            }
-            if (is_array($value)) {
-                $subnode = $xml_data->addChild($key);
-                $this->array_to_xml($value, $subnode);
-            } else {
-                $xml_data->addChild("$key", htmlspecialchars("$value"));
-            }
-        }
-    }
-
-
-}
