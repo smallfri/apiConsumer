@@ -20,6 +20,7 @@ use SoapBox\Formatter\Formatter;
  */
 class RedAwningController extends Controller
 {
+    public $url;
     /**
      * Create a new controller instance.
      *
@@ -27,7 +28,7 @@ class RedAwningController extends Controller
      */
     public function __construct()
     {
-        //
+        $this->url = $url = env('RedAwningURL');
     }
 
 
@@ -36,17 +37,14 @@ class RedAwningController extends Controller
      *
      * @return
      */
-    public function listings()
+    public function absorbListings($endpoint)
     {
-        // URL to fetch
-        $url = env('RedAwningURL');
-
         // Setting the HTTP Request Headers
         $request_headers = array();
-        $request_headers[] = 'x-api-key: zj4xYmGHwO6j04Umhs8Ve16HNoIvMEP6u0PLcUU8';
+        $request_headers[] = 'x-api-key: '.env('RedAwningPubKey');
 
         // Performing the HTTP request
-        $ch = curl_init($url.'/listings');
+        $ch = curl_init($this->url.$endpoint);
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, $request_headers);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -72,9 +70,8 @@ class RedAwningController extends Controller
 
             $random = rand(1000, 10);
             // Performing the HTTP request
-            $url = $url.'/listings?limit=' . $limit . '&offset=' . $offset . '&tid=' . $random;
 
-            $ch = curl_init($url);
+            $ch = curl_init($this->url.'/'.$endpoint.'?limit=' . $limit . '&offset=' . $offset . '&tid=' . $random);
             curl_setopt($ch, CURLOPT_HTTPHEADER, $request_headers);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
@@ -84,10 +81,7 @@ class RedAwningController extends Controller
             $listings = json_decode($response, true);
 
             foreach ($listings AS $listing) {
-                echo '<pre style="border:solid 1px red">';
-                print_r($listing);
-                echo '</pre>';
-//                exit;
+
                 $Listing = new RAListing();
                 $Listing->listing_id = $listing['listing_id'];
                 $Listing->url_alias = $listing['url_alias'];
@@ -149,15 +143,15 @@ class RedAwningController extends Controller
                     $Photo->save();
                 }
 
-                foreach($listing['cico'] as $cico)
-                {
-                    $Cico = new RACico();
-                    $Cico->redawning_listing_id = $listing['listing_id'];
-                    $Cico->start_date = $cico['start_date'];
-                    $Cico->end_date = $cico['end_date'];
-                    $Cico->check_in_allowed = json_encode($cico['check_in_allowed']);
-                    $Cico->check_out_allowed = json_encode($cico['check_out_allowed']);
-                    $Cico->save();
+                foreach ($listing['cico'] as $cico) {
+                    RACico::updateOrCreate([
+                        'redawning_listing_id' => $listing['listing_id'],
+                        'start_date' => $cico['start_date'],
+                        'end_date' => $cico['end_date'],
+                        'check_in_allowed' => json_encode($cico['check_in_allowed']),
+                        'check_out_allowed' => json_encode($cico['check_out_allowed'])
+                    ]);
+
                 }
 
                 foreach($listing['price_periods'] as $price_period)
@@ -187,55 +181,17 @@ class RedAwningController extends Controller
             }
         }
 
-        return $Listing->listing_id;
+        return true;
     }
 
-
-    /**
-     * XML feed of all products
-     */
-    public function getAllProducts($type) //api/v1/products
+    public function listings()
     {
-
-
+        return $this->absorbListings('listings');
     }
 
-
-    /**
-     * Gets product id by name
-     * @param $name
-     * @return mixed
-     */
-    public function getProductIDByName($name) //api/products/name/{name}
+    public function changes()
     {
-
-    }
-
-    public function getPropertyDetails($productId)
-    {
-
-    }
-
-    public function getPropertySummary($productId)
-    {
-
-    }
-
-    public function getQuote($productId, $fromDate, $toDate)
-    {
-
-    }
-
-    public function getAvailability($productId, $fromDate, $toDate)
-    {
-
-
-    }
-
-    public function createBooking(Request $request)
-    {
-
-
+       return $this->absorbListings('changes');
     }
 
     function get_headers_from_curl_response($response)
