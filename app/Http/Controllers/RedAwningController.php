@@ -95,32 +95,32 @@ class RedAwningController extends Controller
                     'repconfig' => json_encode($listing['repconfig']) 
                 ]);
 
-                $Content = new RAContent();
-                $Content->redawning_listing_id = $listing['listing_id'];
-                $Content->title = $listing['content']['title'];
-                $Content->description = $listing['content']['description'];
-                $Content->property_type = $listing['content']['property_type'];
-                $Content->special_terms = $listing['content']['special_terms'];
-                $Content->view = $listing['content']['view'];
-                $Content->bathrooms = $listing['content']['bathrooms'];
-                $Content->bedrooms = $listing['content']['bedrooms'];
-                $Content->beds_king = $listing['content']['beds_king'];
-                $Content->beds_queen = $listing['content']['beds_queen'];
-                $Content->beds_double = $listing['content']['beds_double'];
-                $Content->beds_twin = $listing['content']['beds_twin'];
-                $Content->beds_sofa = $listing['content']['beds_sofa'];
-                $Content->beds_bunk = $listing['content']['beds_bunk'];
-                $Content->beds_air_mattress = $listing['content']['beds_air_mattress'];
-                $Content->kitchen = $listing['content']['kitchen'];
-                $Content->pool = $listing['content']['pool'];
-                $Content->children_ok = $listing['content']['children_ok'];
-                $Content->pets_allowed = $listing['content']['pets_allowed'];
-                $Content->smoking_allowed = $listing['content']['smoking_allowed'];
-                $Content->amenities = json_encode($listing['content']['amenities']);
-                $Content->location = json_encode($listing['content']['location']);
-                $Content->handicap_accessible = $listing['content']['handicap_accessible'];
-                $Content->square_feet = $listing['content']['square_feet'];
-                $Content->save();
+                RAContent::updateOrCreate([
+                    'redawning_listing_id' => $listing['listing_id'],
+                    'title' => $listing['content']['title'],
+                    'description' => $listing['content']['description'],
+                    'property_type' => $listing['content']['property_type'],
+                    'special_terms' => $listing['content']['special_terms'],
+                    'view' => $listing['content']['view'],
+                    'bathrooms' => $listing['content']['bathrooms'],
+                    'bedrooms' => $listing['content']['bedrooms'],
+                    'beds_king' => $listing['content']['beds_king'],
+                    'beds_queen' => $listing['content']['beds_queen'],
+                    'beds_double' => $listing['content']['beds_double'],
+                    'beds_twin' => $listing['content']['beds_twin'],
+                    'beds_sofa' => $listing['content']['beds_sofa'],
+                    'beds_bunk' => $listing['content']['beds_bunk'],
+                    'beds_air_mattress' => $listing['content']['beds_air_mattress'],
+                    'kitchen' => $listing['content']['kitchen'],
+                    'pool' => $listing['content']['pool'],
+                    'children_ok' => $listing['content']['children_ok'],
+                    'pets_allowed' => $listing['content']['pets_allowed'],
+                    'smoking_allowed' => $listing['content']['smoking_allowed'],
+                    'amenities' => json_encode($listing['content']['amenities']),
+                    'location' => json_encode($listing['content']['location']),
+                    'handicap_accessible' => $listing['content']['handicap_accessible'],
+                    'square_feet' => $listing['content']['square_feet']
+                ]);
 
                 foreach($listing['content']['room_configurations'] AS $photo)
                 {
