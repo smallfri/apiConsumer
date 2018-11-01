@@ -122,111 +122,110 @@ class RedAwningController extends Controller
                     'handicap_accessible' => $listing['content']['handicap_accessible'],
                     'square_feet' => $listing['content']['square_feet']
                 ]);
-
-                foreach ($listing['content']['room_configurations'] AS $photo) {
-                    RARoomConfiguration::updateOrCreate([
-                        'name' => $photo['name'],
-                        'beds' => json_encode($photo['beds'])
-                    ]);
-                }
-
-                foreach ($listing['content']['photos'] AS $photo) {
-                    RAPhoto::updateOrCreate([
-                        'redawning_listing_id' => $listing['listing_id'],
-                        'url' => $photo['url'],
-                        'tags' => json_encode($photo['tags']),
-                        'title' => $photo['title'],
-                        'width' => $photo['width'],
-                        'height' => $photo['height'],
-                        'timestamp' => $photo['timestamp']
-                    ]);
-
-                    foreach ($listing['cico'] as $cico) {
-                        RACico::updateOrCreate([
-                            'redawning_listing_id' => $listing['listing_id'],
-                            'start_date' => $cico['start_date'],
-                            'end_date' => $cico['end_date'],
-                            'check_in_allowed' => json_encode($cico['check_in_allowed']),
-                            'check_out_allowed' => json_encode($cico['check_out_allowed'])
-                        ]);
-
-                    }
-
-                    foreach ($listing['price_periods'] as $price_period) {
-
-                        RAPricePeriod::updateOrCreate([
-                            'redawning_listing_id' => $listing['listing_id'],
-                            'period_start' => $price_period['period_start'],
-                            'period_end' => $price_period['period_end'],
-                            'weekday_price' => $price_period['weekday_price'],
-                            'weekend_price' => $price_period['weekend_price'],
-                            'weekly_price' => $price_period['weekly_price'],
-                            'minstay' => $price_period['minstay'],
-                            'name' => $price_period['name']
-                        ]);
-                    }
-
-                    foreach ($listing['availability'] as $price_period) {
-
-                        RAAvailability::updateOrCreate([
-                            'redawning_listing_id' => $listing['listing_id'],
-                            'period' => json_encode($price_period['period'])
-                        ]);
-
-                    }
-
-
-                }
             }
 
-            return true;
-        }
-
-        public
-        function listings()
-        {
-            return $this->absorbListings('listings');
-        }
-
-        public
-        function changes()
-        {
-            return $this->absorbListings('changes');
-        }
-
-        function get_headers_from_curl_response($response)
-        {
-            $headers = array();
-
-            $header_text = substr($response, 0, strpos($response, "\r\n\r\n"));
-
-            foreach (explode("\r\n", $header_text) as $i => $line)
-                if ($i === 0)
-                    $headers['http_code'] = $line;
-                else {
-                    list ($key, $value) = explode(': ', $line);
-
-                    $headers[$key] = $value;
-                }
-
-            return $headers;
-        }
-
-        public
-        function array_to_xml($data, &$xml_data)
-        {
-            foreach ($data as $key => $value) {
-                if (is_numeric($key)) {
-                    $key = 'item' . $key; //dealing with <0/>..<n/> issues
-                }
-                if (is_array($value)) {
-                    $subnode = $xml_data->addChild($key);
-                    $this->array_to_xml($value, $subnode);
-                } else {
-                    $xml_data->addChild("$key", htmlspecialchars("$value"));
-                }
+            foreach ($listing['content']['room_configurations'] AS $photo) {
+                RARoomConfiguration::updateOrCreate([
+                    'redawning_listing_id' => $listing['listing_id'],
+                    'name' => $photo['name'],
+                    'beds' => json_encode($photo['beds'])
+                ]);
             }
+
+            foreach ($listing['content']['photos'] AS $photo) {
+                RAPhoto::updateOrCreate([
+                    'redawning_listing_id' => $listing['listing_id'],
+                    'url' => $photo['url'],
+                    'tags' => json_encode($photo['tags']),
+                    'title' => $photo['title'],
+                    'width' => $photo['width'],
+                    'height' => $photo['height'],
+                    'timestamp' => $photo['timestamp']
+                ]);
+            }
+
+            foreach ($listing['cico'] as $cico) {
+                RACico::updateOrCreate([
+                    'redawning_listing_id' => $listing['listing_id'],
+                    'start_date' => $cico['start_date'],
+                    'end_date' => $cico['end_date'],
+                    'check_in_allowed' => json_encode($cico['check_in_allowed']),
+                    'check_out_allowed' => json_encode($cico['check_out_allowed'])
+                ]);
+
+            }
+
+            foreach ($listing['price_periods'] as $price_period) {
+
+                RAPricePeriod::updateOrCreate([
+                    'redawning_listing_id' => $listing['listing_id'],
+                    'period_start' => $price_period['period_start'],
+                    'period_end' => $price_period['period_end'],
+                    'weekday_price' => $price_period['weekday_price'],
+                    'weekend_price' => $price_period['weekend_price'],
+                    'weekly_price' => $price_period['weekly_price'],
+                    'minstay' => $price_period['minstay'],
+                    'name' => $price_period['name']
+                ]);
+            }
+
+            foreach ($listing['availability'] as $price_period) {
+
+                RAAvailability::updateOrCreate([
+                    'redawning_listing_id' => $listing['listing_id'],
+                    'period' => json_encode($price_period['period'])
+                ]);
+
+            }
+
+
         }
-
-
     }
+
+
+    public function listings()
+    {
+        return $this->absorbListings('listings');
+    }
+
+    public function changes()
+    {
+        return $this->absorbListings('changes');
+    }
+
+    function get_headers_from_curl_response($response)
+    {
+        $headers = array();
+
+        $header_text = substr($response, 0, strpos($response, "\r\n\r\n"));
+
+        foreach (explode("\r\n", $header_text) as $i => $line)
+            if ($i === 0)
+                $headers['http_code'] = $line;
+            else {
+                list ($key, $value) = explode(': ', $line);
+
+                $headers[$key] = $value;
+            }
+
+        return $headers;
+    }
+
+    public
+    function array_to_xml($data, &$xml_data)
+    {
+        foreach ($data as $key => $value) {
+            if (is_numeric($key)) {
+                $key = 'item' . $key; //dealing with <0/>..<n/> issues
+            }
+            if (is_array($value)) {
+                $subnode = $xml_data->addChild($key);
+                $this->array_to_xml($value, $subnode);
+            } else {
+                $xml_data->addChild("$key", htmlspecialchars("$value"));
+            }
+        }
+    }
+
+
+}
