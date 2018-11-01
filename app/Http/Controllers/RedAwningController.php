@@ -9,6 +9,7 @@ use App\RACico;
 use App\RAPhoto;
 use App\RAPricePeriod;
 use App\RARoomConfiguration;
+use SoapBox\Formatter\Formatter;
 
 /**
  * Class RedAwningController
@@ -77,7 +78,13 @@ class RedAwningController extends Controller
 
             $listings = json_decode($response, true);
 
+
+
             foreach ($listings AS $listing) {
+
+                echo '<pre style="border:solid 1px blue">';
+                print_r($listing);
+                echo '</pre>';
 
                 RAListing::updateOrCreate([
                     'listing_id' => $listing['listing_id'],
@@ -188,6 +195,41 @@ class RedAwningController extends Controller
     public function changes()
     {
         return $this->absorbListings('changes');
+    }
+
+    public function displayListing($listingId)
+    {
+
+        $listing = RAListing::find($listingId)->first()->toArray();
+        $listingAvailability = RAListing::find($listingId)->availability()->get()->toArray();
+        $listingCico = RAListing::find($listingId)->cico()->get()->toArray();
+        $listingContent = RAListing::find($listingId)->content()->get()->toArray();
+        $listingPhotos = RAListing::find($listingId)->photos()->get()->toArray();
+        $listingPricePeriod = RAListing::find($listingId)->priceperiod()->get()->toArray();
+        $listingRoomConfiguration = RAListing::find($listingId)->roomconfiguration()->get()->toArray();
+
+        $fullListing =
+            ['listing' =>
+                [
+                    'url_alias' => $listing['url_alias'],
+                    'cico_times' => json_decode($listing['cico_times'], true),
+                    'price' => json_decode($listing['price'], true),
+                    'status' => json_decode($listing['status'], true),
+                    'availability' => $listingAvailability,
+                    'cico' => $listingCico,
+                    'content' => $listingContent,
+                    'photos' => $listingPhotos,
+                    'price_period' => $listingPricePeriod,
+                    'room_configuration' => $listingRoomConfiguration
+
+                ]
+            ];
+
+        $formatter = Formatter::make(json_encode($fullListing), Formatter::JSON);
+        header("Content-type: text/xml");
+        echo $formatter->toXml();
+
+
     }
 
     function get_headers_from_curl_response($response)
