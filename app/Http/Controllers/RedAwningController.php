@@ -9,10 +9,6 @@ use App\RACico;
 use App\RAPhoto;
 use App\RAPricePeriod;
 use App\RARoomConfiguration;
-use GuzzleHttp\Client;
-use Illuminate\Http\Request;
-use SimpleXMLElement;
-use SoapBox\Formatter\Formatter;
 
 /**
  * Class RedAwningController
@@ -122,62 +118,63 @@ class RedAwningController extends Controller
                     'handicap_accessible' => $listing['content']['handicap_accessible'],
                     'square_feet' => $listing['content']['square_feet']
                 ]);
+
+                foreach ($listing['content']['room_configurations'] AS $photo) {
+                    RARoomConfiguration::updateOrCreate([
+                        'redawning_listing_id' => $listing['listing_id'],
+                        'name' => $photo['name'],
+                        'beds' => json_encode($photo['beds'])
+                    ]);
+                }
+
+                foreach ($listing['content']['photos'] AS $photo) {
+
+                    RAPhoto::updateOrCreate([
+                        'redawning_listing_id' => $listing['listing_id'],
+                        'url' => $photo['url'],
+                        'order' => $photo['order'],
+                        'tags' => json_encode($photo['tags']),
+                        'title' => $photo['title'],
+                        'width' => $photo['width'],
+                        'height' => $photo['height'],
+                        'timestamp' => $photo['timestamp']
+                    ]);
+                }
+
+                foreach ($listing['cico'] as $cico) {
+                    RACico::updateOrCreate([
+                        'redawning_listing_id' => $listing['listing_id'],
+                        'start_date' => $cico['start_date'],
+                        'end_date' => $cico['end_date'],
+                        'check_in_allowed' => json_encode($cico['check_in_allowed']),
+                        'check_out_allowed' => json_encode($cico['check_out_allowed'])
+                    ]);
+
+                }
+
+                foreach ($listing['price_periods'] as $price_period) {
+
+                    RAPricePeriod::updateOrCreate([
+                        'redawning_listing_id' => $listing['listing_id'],
+                        'period_start' => $price_period['period_start'],
+                        'period_end' => $price_period['period_end'],
+                        'weekday_price' => $price_period['weekday_price'],
+                        'weekend_price' => $price_period['weekend_price'],
+                        'weekly_price' => $price_period['weekly_price'],
+                        'minstay' => $price_period['minstay'],
+                        'name' => $price_period['name']
+                    ]);
+                }
+
+                foreach ($listing['availability'] as $row) {
+
+                    RAAvailability::updateOrCreate([
+                        'redawning_listing_id' => $listing['listing_id'],
+                        'period' => json_encode($row['period'])
+                    ]);
+
+                }
             }
-
-            foreach ($listing['content']['room_configurations'] AS $photo) {
-                RARoomConfiguration::updateOrCreate([
-                    'redawning_listing_id' => $listing['listing_id'],
-                    'name' => $photo['name'],
-                    'beds' => json_encode($photo['beds'])
-                ]);
-            }
-
-            foreach ($listing['content']['photos'] AS $photo) {
-                RAPhoto::updateOrCreate([
-                    'redawning_listing_id' => $listing['listing_id'],
-                    'url' => $photo['url'],
-                    'tags' => json_encode($photo['tags']),
-                    'title' => $photo['title'],
-                    'width' => $photo['width'],
-                    'height' => $photo['height'],
-                    'timestamp' => $photo['timestamp']
-                ]);
-            }
-
-            foreach ($listing['cico'] as $cico) {
-                RACico::updateOrCreate([
-                    'redawning_listing_id' => $listing['listing_id'],
-                    'start_date' => $cico['start_date'],
-                    'end_date' => $cico['end_date'],
-                    'check_in_allowed' => json_encode($cico['check_in_allowed']),
-                    'check_out_allowed' => json_encode($cico['check_out_allowed'])
-                ]);
-
-            }
-
-            foreach ($listing['price_periods'] as $price_period) {
-
-                RAPricePeriod::updateOrCreate([
-                    'redawning_listing_id' => $listing['listing_id'],
-                    'period_start' => $price_period['period_start'],
-                    'period_end' => $price_period['period_end'],
-                    'weekday_price' => $price_period['weekday_price'],
-                    'weekend_price' => $price_period['weekend_price'],
-                    'weekly_price' => $price_period['weekly_price'],
-                    'minstay' => $price_period['minstay'],
-                    'name' => $price_period['name']
-                ]);
-            }
-
-            foreach ($listing['availability'] as $price_period) {
-
-                RAAvailability::updateOrCreate([
-                    'redawning_listing_id' => $listing['listing_id'],
-                    'period' => json_encode($price_period['period'])
-                ]);
-
-            }
-
 
         }
     }

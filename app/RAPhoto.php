@@ -6,6 +6,7 @@ class RAPhoto extends Model {
 
     protected $fillable = [
         'redawning_listing_id',
+        'url',
         'order',
         'tags',
         'title',

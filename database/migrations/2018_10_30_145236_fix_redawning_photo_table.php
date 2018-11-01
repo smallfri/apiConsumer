@@ -18,13 +18,13 @@ class FixRedawningPhotoTable extends Migration
         Schema::create('redawning_photos', function (Blueprint $table) {
             $table->integer('redawning_listing_id');
             $table->primary('redawning_listing_id');
-            $table->text('url');
+            $table->string('url', 255);
             $table->integer('order');
             $table->text('tags');
             $table->text('title');
             $table->integer('width');
             $table->integer('height');
-            $table->dateTime('timestamp');
+            $table->string('timestamp',255);
             $table->timestamps();
         });
     }
