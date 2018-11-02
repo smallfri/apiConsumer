@@ -33,7 +33,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
 
         $router->get('{listingId}/property_details', ['uses' => 'RedAwningController@displayListing']);
 
-        $router->get('displayListingQuote/{listingId}/quote/from_date/{fromDate}/to_date/{toDate}', ['uses' => 'RedAwningController@displayListing']);
+        $router->get('{listingId}/quote/from_date/{fromDate}/to_date/{toDate}', ['uses' => 'RedAwningController@getQuote']);
 
 
     });

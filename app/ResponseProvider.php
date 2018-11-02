@@ -24,9 +24,9 @@ class ResponseProvider
         return Response()->make($xml, $status, $headers);
     }
 
-    public function json($fullListing)
+    public function json($data)
     {
-        return response($fullListing)
+        return response($data)
             ->withHeaders([
                 'Content-Type' => 'application/json',
             ]);
@@ -34,15 +34,15 @@ class ResponseProvider
 
 
 
-    public function preferredFormat($fullListing, $status = 200, array $headers = [], $xmlRoot = 'response')
+    public function preferredFormat($data, $status = 200, array $headers = [], $xmlRoot = 'response')
     {
         $request = Container::getInstance()->make('request');
 
         if (Str::contains($request->headers->get('Accept'), 'xml')) {
-                return $this->xml($fullListing, $status, array_merge($headers, ['Content-Type' => $request->headers->get('Accept')]), $xmlRoot);
+                return $this->xml($data, $status, array_merge($headers, ['Content-Type' => $request->headers->get('Accept')]), $xmlRoot);
             }
         else {
-                return $this->json($fullListing);
+                return $this->json($data);
             }
     }
 }

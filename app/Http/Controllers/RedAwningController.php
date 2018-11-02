@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Providers\ResponseServiceProvider;
+use App\ResponseProvider;
 use App\RAAvailability;
 use App\RAContent;
 use App\RAListing;
@@ -10,7 +10,8 @@ use App\RACico;
 use App\RAPhoto;
 use App\RAPricePeriod;
 use App\RARoomConfiguration;
-use App\ResponseProvider;
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request;
 use SoapBox\Formatter\Formatter;
 
 /**
@@ -231,6 +232,30 @@ class RedAwningController extends Controller
         return $ResponseServiceProvider->preferredFormat($fullListing);
     }
 
+    public function getQuote($listingId, $fromDate, $toDate)
+    {
+        // Send an asynchronous request.
+        $endpoint = 'listings/'.$listingId.'/quote?checkin='.$fromDate.'&checkout='.$toDate;
+
+        $request_headers = array();
+        $request_headers[] = 'x-api-key: ' . env('RedAwningPubKey');
+
+        try {
+            $client = new Client();
+            $response = $client->get($this->url . '/' . $endpoint , [
+                'headers' => ['x-api-key' => env('RedAwningPubKey')]
+            ]);
+        } catch (\Exception $exception){
+            //todo add logging here
+            echo '<pre style="border:solid 1px red">';
+            print_r($exception);
+            echo '</pre>';
+        }
+
+        $ResponseServiceProvider = new ResponseProvider();
+        return $ResponseServiceProvider->preferredFormat(['quote'=>json_decode($response->getBody(),true)]);
+    }
+
     function get_headers_from_curl_response($response)
     {
         $headers = array();
@@ -248,7 +273,4 @@ class RedAwningController extends Controller
 
         return $headers;
     }
-
-
-
 }
