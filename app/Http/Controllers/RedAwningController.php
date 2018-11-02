@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Providers\ResponseServiceProvider;
 use App\RAAvailability;
 use App\RAContent;
 use App\RAListing;
@@ -9,6 +10,7 @@ use App\RACico;
 use App\RAPhoto;
 use App\RAPricePeriod;
 use App\RARoomConfiguration;
+use App\ResponseProvider;
 use SoapBox\Formatter\Formatter;
 
 /**
@@ -225,11 +227,8 @@ class RedAwningController extends Controller
                 ]
             ];
 
-        $formatter = Formatter::make(json_encode($fullListing), Formatter::JSON);
-        header("Content-type: text/xml");
-        echo $formatter->toXml();
-
-
+        $ResponseServiceProvider = new ResponseProvider();
+        return $ResponseServiceProvider->preferredFormat($fullListing);
     }
 
     function get_headers_from_curl_response($response)
@@ -250,21 +249,6 @@ class RedAwningController extends Controller
         return $headers;
     }
 
-    public
-    function array_to_xml($data, &$xml_data)
-    {
-        foreach ($data as $key => $value) {
-            if (is_numeric($key)) {
-                $key = 'item' . $key; //dealing with <0/>..<n/> issues
-            }
-            if (is_array($value)) {
-                $subnode = $xml_data->addChild($key);
-                $this->array_to_xml($value, $subnode);
-            } else {
-                $xml_data->addChild("$key", htmlspecialchars("$value"));
-            }
-        }
-    }
 
 
 }
