@@ -35,6 +35,22 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
 
         $router->get('{listingId}/quote/from_date/{fromDate}/to_date/{toDate}', ['uses' => 'RedAwningController@getQuote']);
 
+        $router->post('reservation/{quoteId}', ['uses' => 'RedAwningController@newReservation']);
+
+        $router->get('listings/{listingId}/status', ['uses' => 'RedAwningController@getListingStatus']);
+
+        $router->get('listings/{listingId}/availability', ['uses' => 'RedAwningController@getListingAvailability']);
+
+        $router->get('listings/{listingId}/cico', ['uses' => 'RedAwningController@getListingCico']);
+
+        $router->get('listings/{listingId}/cicotimes', ['uses' => 'RedAwningController@getListingCicoTimes']);
+
+        $router->get('listings/{listingId}/content', ['uses' => 'RedAwningController@getListingContent']);
+
+        $router->get('listings/{listingId}', ['uses' => 'RedAwningController@getListing']);
+
+        $router->get('listing-summaries', ['uses' => 'RedAwningController@getListingSummaries']);
+
 
     });
 });
