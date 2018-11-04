@@ -400,7 +400,7 @@ class RedAwningController extends Controller
         if (isset($index) && $index == 1) {
             //1 for showing listings straight from the api
             $client = new Client();
-            $response = $client->get($this->url.'/listing_summaries?limit='.$limit.'&offset='.$limit, [
+            $response = $client->get($this->url . '/listing-summaries', [
                 'headers' => ['x-api-key' => env('RedAwningPubKey')]
             ]);
 
