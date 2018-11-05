@@ -51,6 +51,8 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
 
         $router->get('listing-summaries', ['uses' => 'RedAwningController@getListingSummaries']);
 
+        $router->get('listings/{listingId}/policies', ['uses' => 'RedAwningController@getListingPolicies']);
+
 
     });
 });

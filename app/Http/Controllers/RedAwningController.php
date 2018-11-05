@@ -13,8 +13,6 @@ use App\RARoomConfiguration;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use SoapBox\Formatter\Formatter;
-
 
 /**
  * Class RedAwningController
@@ -84,14 +82,14 @@ class RedAwningController extends Controller
             $response = curl_exec($ch);
             curl_close($ch);
 
-            $listings = json_decode($response, true);
+            $listings = json_decode($response,true);
 
 
             foreach ($listings AS $listing) {
 
-                echo '<pre style="border:solid 1px blue">';
-                print_r($listing);
-                echo '</pre>';
+//                echo '<pre style="border:solid 1px blue">';
+//                print_r($listing);
+//                echo '</pre>';
 
                 RAListing::updateOrCreate([
                     'listing_id' => $listing['listing_id'],
@@ -250,8 +248,10 @@ class RedAwningController extends Controller
                 'headers' => ['x-api-key' => env('RedAwningPubKey')]
             ]);
 
+            $results = ['quote' => json_decode($response->getBody(),true)];
+
             $ResponseServiceProvider = new ResponseProvider();
-            return $ResponseServiceProvider->preferredFormat(['quote' => json_decode($response->getBody(), true)]);
+            return $ResponseServiceProvider->preferredFormat($results);
         } catch (\Exception $exception) {
             //todo add logging here
             echo '<pre style="border:solid 1px red">';
@@ -301,8 +301,10 @@ class RedAwningController extends Controller
                 'headers' => ['x-api-key' => env('RedAwningPubKey')]
             ]);
 
+            $results = ['status' => json_decode($response->getBody(),true)];
+
             $ResponseServiceProvider = new ResponseProvider();
-            return $ResponseServiceProvider->preferredFormat(['quote' => json_decode($response->getBody(), true)]);
+            return $ResponseServiceProvider->preferredFormat($results);
         } catch (\Exception $exception) {
             //todo add logging here
             echo '<pre style="border:solid 1px red">';
@@ -321,8 +323,10 @@ class RedAwningController extends Controller
                 'headers' => ['x-api-key' => env('RedAwningPubKey')]
             ]);
 
+            $results = ['availability' => json_decode($response->getBody(),true)];
+
             $ResponseServiceProvider = new ResponseProvider();
-            return $ResponseServiceProvider->preferredFormat(['quote' => json_decode($response->getBody(), true)]);
+            return $ResponseServiceProvider->preferredFormat($results);
         } catch (\Exception $exception) {
             //todo add logging here
             echo '<pre style="border:solid 1px red">';
@@ -341,8 +345,10 @@ class RedAwningController extends Controller
                 'headers' => ['x-api-key' => env('RedAwningPubKey')]
             ]);
 
+            $results = ['quote' => json_decode($response->getBody(),true)];
+
             $ResponseServiceProvider = new ResponseProvider();
-            return $ResponseServiceProvider->preferredFormat(['quote' => json_decode($response->getBody(), true)]);
+            return $ResponseServiceProvider->preferredFormat($results);
         } catch (\Exception $exception) {
             //todo add logging here
             echo '<pre style="border:solid 1px red">';
@@ -361,8 +367,10 @@ class RedAwningController extends Controller
                 'headers' => ['x-api-key' => env('RedAwningPubKey')]
             ]);
 
+            $results = ['cicotimes' => json_decode($response->getBody(),true)];
+
             $ResponseServiceProvider = new ResponseProvider();
-            return $ResponseServiceProvider->preferredFormat(['quote' => json_decode($response->getBody(), true)]);
+            return $ResponseServiceProvider->preferredFormat($results);
         } catch (\Exception $exception) {
             //todo add logging here
             echo '<pre style="border:solid 1px red">';
@@ -381,8 +389,36 @@ class RedAwningController extends Controller
                 'headers' => ['x-api-key' => env('RedAwningPubKey')]
             ]);
 
+            $results = ['quote' => json_decode($response->getBody(),true)];
+
+
             $ResponseServiceProvider = new ResponseProvider();
-            return $ResponseServiceProvider->preferredFormat(['quote' => json_decode($response->getBody(), true)]);
+            return $ResponseServiceProvider->preferredFormat($results);
+        } catch (\Exception $exception) {
+            //todo add logging here
+            echo '<pre style="border:solid 1px red">';
+            print_r($exception);
+            echo '</pre>';
+        }
+    }
+
+    public function getListingPolicies($listingId)
+    {
+        $endpoint = '/listings/' . $listingId . '/policies';
+
+        try {
+            $client = new Client();
+            $response = $client->get($this->url . $endpoint, [
+                'headers' => ['x-api-key' => env('RedAwningPubKey')]
+            ]);
+
+            $ResponseServiceProvider = new ResponseProvider();
+
+            $results = ['policies' => json_decode($response->getBody(),true)];
+
+
+            return $ResponseServiceProvider->preferredFormat($results);
+
         } catch (\Exception $exception) {
             //todo add logging here
             echo '<pre style="border:solid 1px red">';
@@ -404,7 +440,7 @@ class RedAwningController extends Controller
                 'headers' => ['x-api-key' => env('RedAwningPubKey')]
             ]);
 
-            $listings = json_decode($response->getBody(),true);
+            $listings = $response->getBody();
 
         } else {
 
@@ -417,7 +453,7 @@ class RedAwningController extends Controller
                     ->join('redawning_content','redawning_listings.listing_id', 'redawning_content.redawning_listing_id')
                     ->select('listing_id','title','status->published as published')
                     ->get();
-                $listings=json_decode($listings, true);
+                $listings=json_decode($listings,true);
 
             } else {
                 $listings = DB::table('redawning_listings')
@@ -426,13 +462,13 @@ class RedAwningController extends Controller
                     ->limit(( ( $this->_page - 1 ) * $this->_limit ))
                     ->offset($this->_limit)
                     ->get();
-                $listings=json_decode($listings, true);
 
             }
         }
+        $results = ['listings' => json_decode($listings,true)];
 
         $ResponseServiceProvider = new ResponseProvider();
-        return $ResponseServiceProvider->preferredFormat(['data'=>$listings]);
+        return $ResponseServiceProvider->preferredFormat($results);
     }
 
     function get_headers_from_curl_response($response)
