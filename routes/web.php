@@ -5,7 +5,7 @@ $router->get('/', function () use ($router) {
 
 $router->group(['prefix' => 'api/v1'], function () use ($router) {
 
-    $router->group(['prefix' => 'bookingPal/'], function () use ($router) {
+    $router->group(['prefix' => 'bookingPal'], function () use ($router) {
 
     $router->get('type/{type}', ['uses' => 'BookingPalController@getAllProducts']);
 

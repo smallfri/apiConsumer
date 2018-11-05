@@ -24,9 +24,7 @@ END;
         $from_date = '2018-09-30';
         $product_id = 291356;
 
-        $url = 'http://homestead.test/api/v1/bookingPal/products/createBooking';
-//echo $url;
-//exit;
+        $url = 'http://homestead.test/api/v1/bookingPal/createBooking';
 
         $json = <<<END
 {
@@ -117,7 +115,7 @@ END;
         $from_date = '2019-09-30'; // not allowed
         $product_id = 291356;
 
-        $url = env('MyTestURL', true).'/bookingPal/products/createBooking';
+        $url = env('MyTestURL', true).'/bookingPal/createBooking';
 
         $json = <<<END
 {
@@ -207,7 +205,7 @@ END;
         $from_date = '2018-09-30';
         $product_id = 291356;
 
-        $url = env('MyTestURL', true).'/bookingPal/products/createBooking';
+        $url = env('MyTestURL', true).'/bookingPal/createBooking';
 
         $json = <<<END
 {
@@ -297,7 +295,7 @@ END;
         $from_date = '2019-09-30'; // not allowed
         $product_id = 291356;
 
-        $url = env('MyTestURL', true).'/bookingPal/products/createBooking';
+        $url = env('MyTestURL', true).'/bookingPal/createBooking';
 
         $json = <<<END
 {
@@ -395,7 +393,7 @@ END;
 
         $product_id = 291356;
 
-        $url = env('MyTestURL', true).'/bookingPal/products/createBooking';
+        $url = env('MyTestURL', true).'/bookingPal/createBooking';
 
         $json = <<<END
 {
@@ -485,7 +483,7 @@ END;
         $from_date = '2018-09-28'; // not allowed
         $product_id = 291356;
 
-        $url = env('MyTestURL', true).'/bookingPal/products/createBooking';
+        $url = env('MyTestURL', true).'/bookingPal/createBooking';
 
         $json = <<<END
 {
@@ -578,7 +576,7 @@ END;
         $from_date = '2018-10-08'; // not allowed
         $product_id = 291358;
 
-        $url = env('MyTestURL', true).'/bookingPal/products/createBooking';
+        $url = env('MyTestURL', true).'/bookingPal/createBooking';
 
         $json = <<<END
 {
@@ -613,9 +611,6 @@ END;
     }
 }
 END;
-
-        echo $json;
-
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -629,8 +624,6 @@ END;
 
         $response = curl_exec($ch);
         curl_close($ch);
-
-        print_r($response,true);
 
         //Find the product message code
         $re = '/<messageCode>(.*)<\/messageCode>/m';
@@ -653,7 +646,7 @@ END;
             'product_id' => $product_id,
             'expected' => $test_data,
             'actual' => $response,
-            'data' => 'Requires a minimum 4 night stay',
+            'data' => 'will not allow a reservation when guest count exceeds that number.',
         ];
 
         $this->writeToLog($args);
