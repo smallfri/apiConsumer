@@ -57,6 +57,12 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
 
         $router->get('reservations', ['uses' => 'RedAwningController@getReservations']);
 
+        $router->get('reservation/{reservationId}', ['uses' => 'RedAwningController@getReservationsById']);
+
+        $router->delete('reservation/{reservationId}/delete', ['uses' => 'RedAwningController@deleteReservationsById']);
+
+        $router->get('reservationstatus/{reservationId}', ['uses' => 'RedAwningController@getReservationStatus']);
+
 
     });
 });

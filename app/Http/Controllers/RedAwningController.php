@@ -476,6 +476,47 @@ class RedAwningController extends Controller
         return $ResponseServiceProvider->preferredFormat(json_encode($listings));
     }
 
+    public function getReservationsById($reservationId)
+    {
+        $client = new Client();
+        $response = $client->get($this->url . 'reservations/'.$reservationId, [
+            'headers' => ['x-api-key' => env('RedAwningPubKey')]
+        ]);
+
+        $listings = $response->getBody();
+
+        $ResponseServiceProvider = new ResponseProvider();
+        return $ResponseServiceProvider->preferredFormat(json_encode($listings));
+    }
+
+    public function deleteReservationsById($reservationId)
+    {
+
+        $client = new Client();
+        $response = $client->delete($this->url . 'reservations/'.$reservationId, [
+            'headers' => ['x-api-key' => env('RedAwningPubKey')]
+        ]);
+
+        $listings = $response->getBody();
+
+        $ResponseServiceProvider = new ResponseProvider();
+        return $ResponseServiceProvider->preferredFormat(json_encode($listings));
+    }
+
+    public function getReservationStatus($reservationId)
+    {
+
+        $client = new Client();
+        $response = $client->get($this->url . 'reservationstatus/'.$reservationId, [
+            'headers' => ['x-api-key' => env('RedAwningPubKey')]
+        ]);
+
+        $listings = $response->getBody();
+
+        $ResponseServiceProvider = new ResponseProvider();
+        return $ResponseServiceProvider->preferredFormat(json_encode($listings));
+    }
+
     public function getListingPrice($listingId)
     {
         $endpoint = '/listings/' . $listingId . '/price';
@@ -520,3 +561,6 @@ class RedAwningController extends Controller
 
 //TODO Move get_headers_from_curl_response to helper
 //TODO Remove try catch, and add response code handleing
+//TODO Finish getReservations, getNewReservation
+//TODO Test getReservationsById
+//TODO Test getReservationsStatus
