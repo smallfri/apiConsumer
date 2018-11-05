@@ -53,6 +53,10 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
 
         $router->get('listings/{listingId}/policies', ['uses' => 'RedAwningController@getListingPolicies']);
 
+        $router->get('listings/{listingId}/price', ['uses' => 'RedAwningController@getListingPrice']);
+
+        $router->get('reservations', ['uses' => 'RedAwningController@getReservations']);
+
 
     });
 });
