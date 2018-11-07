@@ -193,7 +193,7 @@ class RedAwningController extends Controller
         }
     }
 
-    public function listings()
+    public function getListings()
     {
         return $this->absorbListings('listings');
     }
@@ -243,21 +243,16 @@ class RedAwningController extends Controller
         $request_headers = array();
         $request_headers[] = 'x-api-key: ' . env('RedAwningPubKey');
 
-        try {
-            $client = new Client();
-            $response = $client->get($this->url . '/' . $endpoint, [
-                'headers' => ['x-api-key' => env('RedAwningPubKey')]
-            ]);
+        $client = new Client();
+        $response = $client->get($this->url . '/' . $endpoint, [
+            'headers' => ['x-api-key' => env('RedAwningPubKey')]
+        ]);
 
-            $ResponseServiceProvider = new ResponseProvider();
-            return $ResponseServiceProvider->preferredFormat($response->getBody());
-        } catch (\Exception $exception) {
-            //todo add logging here
-            echo '<pre style="border:solid 1px red">';
-            print_r($exception);
-            echo '</pre>';
-        }
-        return false;
+        $quote = $response->getBody();
+
+        $ResponseServiceProvider = new ResponseProvider();
+        return $ResponseServiceProvider->preferredFormat($response->getBody());
+
     }
 
     public function newReservation(Request $request, $quoteId)
@@ -376,8 +371,6 @@ class RedAwningController extends Controller
 
         $ResponseServiceProvider = new ResponseProvider();
         return $ResponseServiceProvider->preferredFormat(json_encode($listings));
-
-
     }
 
     public function getListingPolicies($listingId)
@@ -478,7 +471,7 @@ class RedAwningController extends Controller
     public function getReservationsById($reservationId)
     {
         $client = new Client();
-        $response = $client->get($this->url . 'reservations/'.$reservationId, [
+        $response = $client->get($this->url . 'reservations/' . $reservationId, [
             'headers' => ['x-api-key' => env('RedAwningPubKey')]
         ]);
 
@@ -492,7 +485,7 @@ class RedAwningController extends Controller
     {
 
         $client = new Client();
-        $response = $client->delete($this->url . 'reservations/'.$reservationId, [
+        $response = $client->delete($this->url . 'reservations/' . $reservationId, [
             'headers' => ['x-api-key' => env('RedAwningPubKey')]
         ]);
 
@@ -506,7 +499,7 @@ class RedAwningController extends Controller
     {
 
         $client = new Client();
-        $response = $client->get($this->url . 'reservationstatus/'.$reservationId, [
+        $response = $client->get($this->url . 'reservationstatus/' . $reservationId, [
             'headers' => ['x-api-key' => env('RedAwningPubKey')]
         ]);
 
@@ -559,7 +552,7 @@ class RedAwningController extends Controller
 }
 
 //TODO Move get_headers_from_curl_response to helper
-//TODO Remove try catch, and add response code handleing
 //TODO Finish getReservations, getNewReservation
 //TODO Test getReservationsById
 //TODO Test getReservationsStatus
+//TODO {"Code": "BadRequestError", "Message": "BadRequestError: This listing is already booked for days you have selected"} handle this
