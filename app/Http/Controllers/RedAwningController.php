@@ -193,7 +193,6 @@ class RedAwningController extends Controller
         }
     }
 
-
     public function listings()
     {
         return $this->absorbListings('listings');

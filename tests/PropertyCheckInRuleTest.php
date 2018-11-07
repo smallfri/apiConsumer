@@ -1,10 +1,5 @@
 <?php
 
-use GuzzleHttp\Client;
-use Illuminate\Support\Facades\DB;
-use Laravel\Lumen\Testing\DatabaseMigrations;
-use Laravel\Lumen\Testing\DatabaseTransactions;
-
 class PropertyCheckInRuleTest extends TestCase
 {
     /**
