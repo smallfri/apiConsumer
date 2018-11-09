@@ -271,7 +271,9 @@ class RedAwningController extends Controller
 
             return $ResponseServiceProvider->preferredFormat($response->getBody());
         } catch (\Exception $e) {
-            Helper::handleStatusCodes($e->getCode());
+            echo "oh heck";
+//            echo $e->getMessage();
+//            Helper::handleStatusCodes($e->getCode());
         }
     }
 

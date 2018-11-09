@@ -118,16 +118,19 @@ class RedAwningControllerTest extends TestCase
                                     'expiration_month' => 8,
                                     'expiration_year' => 2020,
                                 ),
-                            'amount' => 1977.950000000000045474735088646411895751953125,
+                            'amount' => 2616.37,
                             'currency' => 'USD',
                         ),
                 ),
         );
 
+        $json = '{"quote_id":"18567","first_name":"Test","last_name":"McTesterson","address":{"street_address":"1234 S Testing St.","city":"Des Moines","province":"WA","postal_code":"98198","country":"US"},"home_phone":"206-555-1212","mobile_phone":"206-555-1111","email":"dev@redawning.com","payments":[{"method":"creditcard","method_details":{"creditcard_number":"4111111111111111","cvv":"123","expiration_month":8,"expiration_year":2020},"amount":2616.37,"currency":"USD"}]}';
 
-        $this->json('POST', 'http://homestead.test/api/v1/redAwning/reservations',$body, ['Accept'=>'application/json','headers'=>['x-api-key'=>'zj4xYmGHwO6j04Umhs8Ve16HNoIvMEP6u0PLcUU8']])->seeStatusCode(200)
+//print_r(json_encode($body));
+//exit;
+        $this->json('POST', 'http://homestead.test/api/v1/redAwning/reservations',['json'=>$json], ['Accept'=>'application/json','headers'=>['x-api-key'=>'zj4xYmGHwO6j04Umhs8Ve16HNoIvMEP6u0PLcUU8']])->seeStatusCode(200)
             ->seeJson([
-                'checkin_date' => '2020-08-27',
+                'Code' => 'BadRequestError',
             ]);
     }
 
