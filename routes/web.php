@@ -31,33 +31,33 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
 
         $router->get('changes', ['uses' => 'RedAwningController@changes']);
 
-        $router->get('{listingId}/property_details', ['uses' => 'RedAwningController@displayListing']);
+        $router->get('listings/{listingId}/property_details', ['uses' => 'RedAwningController@getDetailedListing']);
 
-        $router->get('quote/{listingId}/from_date/{fromDate}/to_date/{toDate}', ['uses' => 'RedAwningController@getQuote']);
+        $router->get('quote/{listingId}/from_date/{fromDate}/to_date/{toDate}', ['uses' => 'RedAwningController@getQuote']); //tested
 
-        $router->post('reservation/{quoteId}', ['uses' => 'RedAwningController@newReservation']);
+        $router->get('listings/{listingId}', ['uses' => 'RedAwningController@getListing']); //tested
 
-        $router->get('listings/{listingId}', ['uses' => 'RedAwningController@getListing']);
+        $router->get('listings/{listingId}/status', ['uses' => 'RedAwningController@getListingStatus']); //tested
 
-        $router->get('listings/{listingId}/status', ['uses' => 'RedAwningController@getListingStatus']);
+        $router->get('listings/{listingId}/availability', ['uses' => 'RedAwningController@getListingAvailability']); //tested
 
-        $router->get('listings/{listingId}/availability', ['uses' => 'RedAwningController@getListingAvailability']);
+        $router->get('listings/{listingId}/cico', ['uses' => 'RedAwningController@getListingCico']); //tested
 
-        $router->get('listings/{listingId}/cico', ['uses' => 'RedAwningController@getListingCico']);
+        $router->get('listings/{listingId}/cicotimes', ['uses' => 'RedAwningController@getListingCicoTimes']); //tested
 
-        $router->get('listings/{listingId}/cicotimes', ['uses' => 'RedAwningController@getListingCicoTimes']);
-
-        $router->get('listings/{listingId}/content', ['uses' => 'RedAwningController@getListingContent']);
+        $router->get('listings/{listingId}/content', ['uses' => 'RedAwningController@getListingContent']); //tested
 
         $router->get('listing-summaries', ['uses' => 'RedAwningController@getListingSummaries']);
 
-        $router->get('listings/{listingId}/policies', ['uses' => 'RedAwningController@getListingPolicies']);
+        $router->get('listings/{listingId}/policies', ['uses' => 'RedAwningController@getListingPolicies']); //tested
 
-        $router->get('listings/{listingId}/price', ['uses' => 'RedAwningController@getListingPrice']);
+        $router->get('listings/{listingId}/price', ['uses' => 'RedAwningController@getListingPrice']); //tested
+
+        $router->post('reservations', ['uses' => 'RedAwningController@getNewReservation']);
 
         $router->get('reservations', ['uses' => 'RedAwningController@getReservations']);
 
-        $router->get('reservation/{reservationId}', ['uses' => 'RedAwningController@getReservationsById']);
+        $router->get('reservation/{reservationId}', ['uses' => 'RedAwningController@getReservationById']);
 
         $router->delete('reservation/{reservationId}/delete', ['uses' => 'RedAwningController@deleteReservationsById']);
 
