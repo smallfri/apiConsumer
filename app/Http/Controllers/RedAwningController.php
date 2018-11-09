@@ -256,44 +256,23 @@ class RedAwningController extends Controller
 
     public function getNewReservation(Request $request)
     {
-        $endpoint = 'reservations';
-
-
-
-        $body = $request->json()->all();
-
-        echo '<pre style="border:solid 1px red">';
-        print_r($body);
-        echo '</pre>';
-
-        $request_headers = array();
-        $request_headers[] = 'x-api-key:zj4xYmGHwO6j04Umhs8Ve16HNoIvMEP6u0PLcUU8';
+        $body = $request->all();
 
         try {
+
+            $url = $this->url . 'reservations';
             $client = new Client();
-            $response = $client->post($this->url . $endpoint, [
-                'json' => $body,
-                'headers' => [
-                    'Content-Type' => 'application/json',
-                    'x-api-key' => 'zj4xYmGHwO6j04Umhs8Ve16HNoIvMEP6u0PLcUU8',
-                ]
+            $response = $client->post($url, [
+                'headers' => ['x-api-key' => env('RedAwningPubKey')],
+                'json'=>$body
             ]);
-        } catch (\Exception $e){
-//            Helper::handleStatusCodes($e->getCode());
-            print_r($e);
+
+            $ResponseServiceProvider = new ResponseProvider();
+
+            return $ResponseServiceProvider->preferredFormat($response->getBody());
+        } catch (\Exception $e) {
+            Helper::handleStatusCodes($e->getCode());
         }
-
-
-
-
-//        $response = $client->post($this->url . $endpoint, [
-//            'headers' => [$request_headers],
-//            'json' => $body
-//        ]);
-
-        $ResponseServiceProvider = new ResponseProvider();
-        return $ResponseServiceProvider->preferredFormat($response->getBody());
-
     }
 
     public function getListingStatus($listingId)
@@ -460,21 +439,13 @@ class RedAwningController extends Controller
     public function getReservations(Request $request)
     {
         $checkin = $request->input('checkin');
-        $page = $request->input('tid');
         $limit = $request->input('limit');
         $offset = $request->input('offset'); //1 for showing listings straight from the api
         $tid = rand(1000, 10);
 
-        $this->_limit = $limit;
-        $this->_page = $page;
-
         try {
-            $request_headers = array();
-            $request_headers[] = 'x-api-key: zj4xYmGHwO6j04Umhs8Ve16HNoIvMEP6u0PLcUU8';
-            $request_headers[] = 'Content-Type: application/json';
 
-
-            $url = $this->url . 'reservations?limit=' . $this->_limit . '&offset=' . $offset . '&tid=' . $tid . '&checkin=' . $checkin;
+            $url = $this->url . 'reservations?limit=' . $limit . '&offset=' . $offset . '&tid=' . $tid . '&checkin=' . $checkin;
             $client = new Client();
             $response = $client->get($url, [
                 'headers' => ['x-api-key' => env('RedAwningPubKey')]
