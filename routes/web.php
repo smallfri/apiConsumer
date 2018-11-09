@@ -59,7 +59,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
 
         $router->get('reservation/{reservationId}', ['uses' => 'RedAwningController@getReservationById']);
 
-        $router->delete('reservation/{reservationId}/delete', ['uses' => 'RedAwningController@deleteReservationsById']);
+        $router->delete('reservation/{reservationId}/delete', ['uses' => 'RedAwningController@deleteReservationById']);
 
         $router->get('reservationstatus/{reservationId}', ['uses' => 'RedAwningController@getReservationStatus']);
 

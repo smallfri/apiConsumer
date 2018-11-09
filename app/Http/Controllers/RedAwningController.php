@@ -510,18 +510,27 @@ class RedAwningController extends Controller
             }
     }
 
-    public function deleteReservationsById($reservationId)
+    public function deleteReservationById($reservationId)
     {
 
-        $client = new Client();
-        $response = $client->delete($this->url . 'reservations/' . $reservationId, [
-            'headers' => ['x-api-key' => env('RedAwningPubKey')]
-        ]);
+        try {
+            $request_headers = array();
+            $request_headers[] = 'x-api-key: zj4xYmGHwO6j04Umhs8Ve16HNoIvMEP6u0PLcUU8';
+            $request_headers[] = 'Content-Type: application/json';
 
-        $listings = $response->getBody();
 
-        $ResponseServiceProvider = new ResponseProvider();
-        return $ResponseServiceProvider->preferredFormat(json_encode($listings));
+            $url = $this->url . 'reservations/' . $reservationId;
+            $client = new Client();
+            $response = $client->delete($url, [
+                'headers' => ['x-api-key' => env('RedAwningPubKey')]
+            ]);
+
+            $ResponseServiceProvider = new ResponseProvider();
+
+            return $ResponseServiceProvider->preferredFormat($response->getBody());
+        } catch (\Exception $e) {
+            Helper::handleStatusCodes($e->getCode());
+        }
     }
 
     public function getReservationStatus($reservationId)
