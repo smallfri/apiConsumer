@@ -1,5 +1,5 @@
 <?php
-
+return;
 class PropertyCheckInRuleTest extends TestCase
 {
     /**

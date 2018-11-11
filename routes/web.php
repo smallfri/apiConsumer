@@ -27,9 +27,9 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
 
     $router->group(['prefix' => 'redAwning'], function () use ($router) {
 
-        $router->get('listings', ['uses' => 'RedAwningController@listings']);
+        $router->get('listings', ['uses' => 'RedAwningController@getListings']);
 
-        $router->get('changes', ['uses' => 'RedAwningController@changes']);
+        $router->get('changes', ['uses' => 'RedAwningController@getChanges']);
 
         $router->get('listings/{listingId}/property_details', ['uses' => 'RedAwningController@getDetailedListing']);
 

@@ -12,8 +12,10 @@ use App\RAPhoto;
 use App\RAPricePeriod;
 use App\RARoomConfiguration;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class RedAwningController
@@ -85,11 +87,10 @@ class RedAwningController extends Controller
 
             $listings = json_decode($response, true);
 
-
             foreach ($listings AS $listing) {
 
 //                echo '<pre style="border:solid 1px blue">';
-//                print_r($listing);
+//                print_r($listing['listing_id']);
 //                echo '</pre>';
 
                 RAListing::updateOrCreate([
@@ -197,7 +198,7 @@ class RedAwningController extends Controller
         return $this->absorbListings('listings');
     }
 
-    public function changes()
+    public function getChanges()
     {
         return $this->absorbListings('changes');
     }
@@ -258,102 +259,80 @@ class RedAwningController extends Controller
     {
         $body = $request->all();
 
-        try {
 
-            $url = $this->url . 'reservations';
-            $client = new Client();
-            $response = $client->post($url, [
-                'headers' => ['x-api-key' => env('RedAwningPubKey')],
-                'json'=>$body
-            ]);
+        $url = $this->url . 'reservations';
+        $client = new Client();
+        $response = $client->post($url, [
+            'headers' => ['x-api-key' => env('RedAwningPubKey')],
+            'json' => $body
+        ]);
 
-            $ResponseServiceProvider = new ResponseProvider();
+        echo '<pre style="border:solid 1px red">';
+        print_r($response);
+        echo '</pre>';
 
-            return $ResponseServiceProvider->preferredFormat($response->getBody());
-        } catch (\Exception $e) {
-            echo "oh heck";
-//            echo $e->getMessage();
-//            Helper::handleStatusCodes($e->getCode());
-        }
+        $ResponseServiceProvider = new ResponseProvider();
+
+        return $ResponseServiceProvider->preferredFormat($response->getBody());
+
+
     }
 
     public function getListingStatus($listingId)
     {
         $endpoint = 'listings/' . $listingId . '/status';
-        try {
-            $client = new Client();
-            $response = $client->get($this->url . $endpoint, [
-                'headers' => ['x-api-key' => env('RedAwningPubKey')]
-            ]);
 
-            $ResponseServiceProvider = new ResponseProvider();
-            return $ResponseServiceProvider->preferredFormat($response->getBody());
-        } catch (\Exception $exception) {
-            //todo add logging here
-            echo '<pre style="border:solid 1px red">';
-            print_r($exception);
-            echo '</pre>';
-        }
+        $client = new Client();
+        $response = $client->get($this->url . $endpoint, [
+            'headers' => ['x-api-key' => env('RedAwningPubKey')]
+        ]);
+
+        $ResponseServiceProvider = new ResponseProvider();
+        return $ResponseServiceProvider->preferredFormat($response->getBody());
+
     }
 
     public function getListingAvailability($listingId)
     {
         $endpoint = 'listings/' . $listingId . '/availability';
 
-        try {
-            $client = new Client();
-            $response = $client->get($this->url . $endpoint, [
-                'headers' => ['x-api-key' => env('RedAwningPubKey')]
-            ]);
+        $client = new Client();
+        $response = $client->get($this->url . $endpoint, [
+            'headers' => ['x-api-key' => env('RedAwningPubKey')]
+        ]);
 
-            $ResponseServiceProvider = new ResponseProvider();
-            return $ResponseServiceProvider->preferredFormat($response->getBody());
-        } catch (\Exception $exception) {
-            //todo add logging here
-            echo '<pre style="border:solid 1px red">';
-            print_r($exception);
-            echo '</pre>';
-        }
+        $ResponseServiceProvider = new ResponseProvider();
+        return $ResponseServiceProvider->preferredFormat($response->getBody());
+
     }
 
     public function getListingCico($listingId)
     {
         $endpoint = 'listings/' . $listingId . '/cico';
 
-        try {
-            $client = new Client();
-            $response = $client->get($this->url . $endpoint, [
-                'headers' => ['x-api-key' => env('RedAwningPubKey')]
-            ]);
 
-            $ResponseServiceProvider = new ResponseProvider();
-            return $ResponseServiceProvider->preferredFormat($response->getBody());
-        } catch (\Exception $exception) {
-            //todo add logging here
-            echo '<pre style="border:solid 1px red">';
-            print_r($exception);
-            echo '</pre>';
-        }
+        $client = new Client();
+        $response = $client->get($this->url . $endpoint, [
+            'headers' => ['x-api-key' => env('RedAwningPubKey')]
+        ]);
+
+        $ResponseServiceProvider = new ResponseProvider();
+        return $ResponseServiceProvider->preferredFormat($response->getBody());
+
     }
 
     public function getListingCicoTimes($listingId)
     {
         $endpoint = 'listings/' . $listingId . '/cicotimes';
 
-        try {
-            $client = new Client();
-            $response = $client->get($this->url . $endpoint, [
-                'headers' => ['x-api-key' => env('RedAwningPubKey')]
-            ]);
 
-            $ResponseServiceProvider = new ResponseProvider();
-            return $ResponseServiceProvider->preferredFormat($response->getBody());
-        } catch (\Exception $exception) {
-            //todo add logging here
-            echo '<pre style="border:solid 1px red">';
-            print_r($exception);
-            echo '</pre>';
-        }
+        $client = new Client();
+        $response = $client->get($this->url . $endpoint, [
+            'headers' => ['x-api-key' => env('RedAwningPubKey')]
+        ]);
+
+        $ResponseServiceProvider = new ResponseProvider();
+        return $ResponseServiceProvider->preferredFormat($response->getBody());
     }
 
     public function getListingContent($listingId)
@@ -368,22 +347,15 @@ class RedAwningController extends Controller
     {
         $endpoint = 'listings/' . $listingId . '/policies';
 
-        try {
-            $client = new Client();
-            $response = $client->get($this->url . $endpoint, [
-                'headers' => ['x-api-key' => env('RedAwningPubKey')]
-            ]);
+        $client = new Client();
+        $response = $client->get($this->url . $endpoint, [
+            'headers' => ['x-api-key' => env('RedAwningPubKey')]
+        ]);
 
-            $ResponseServiceProvider = new ResponseProvider();
+        $ResponseServiceProvider = new ResponseProvider();
 
-            return $ResponseServiceProvider->preferredFormat($response->getBody());
+        return $ResponseServiceProvider->preferredFormat($response->getBody());
 
-        } catch (\Exception $exception) {
-            //todo add logging here
-            echo '<pre style="border:solid 1px red">';
-            print_r($exception);
-            echo '</pre>';
-        }
     }
 
     public function getListingSummaries(Request $request)
@@ -395,20 +367,16 @@ class RedAwningController extends Controller
         if (isset($index) && $index == 1) {
             //1 for showing listings straight from the api
 
-            try {
-                $request_headers = array();
-                $request_headers[] = 'x-api-key: ' . env('RedAwningPub');
 
-                $client = new Client();
-                $response = $client->get($this->url . 'listing-summaries', [
-                    'headers' => $request_headers
-                ]);
+            $request_headers = array();
+            $request_headers[] = 'x-api-key: ' . env('RedAwningPub');
 
-                $listings = $response->getBody();
-            } catch (\Exception $e) {
-                Helper::handleStatusCodes($e->inputCode());
+            $client = new Client();
+            $response = $client->get($this->url . 'listing-summaries', [
+                'headers' => $request_headers
+            ]);
 
-            }
+            $listings = $response->getBody();
 
         } else {
 
@@ -445,65 +413,60 @@ class RedAwningController extends Controller
         $offset = $request->input('offset'); //1 for showing listings straight from the api
         $tid = rand(1000, 10);
 
-        try {
 
-            $url = $this->url . 'reservations?limit=' . $limit . '&offset=' . $offset . '&tid=' . $tid . '&checkin=' . $checkin;
-            $client = new Client();
-            $response = $client->get($url, [
-                'headers' => ['x-api-key' => env('RedAwningPubKey')]
-            ]);
+//
+        $url = $this->url . 'reservations?limit=' . $limit . '&offset=' . $offset . '&tid=' . $tid . '&checkin=' . $checkin;
+//            print_r($url);
+//            exit;
+        $client = new Client();
+        $response = $client->get($url, [
+            'headers' => ['x-api-key' => env('RedAwningPubKey')]
+        ]);
 
-            $ResponseServiceProvider = new ResponseProvider();
+        $ResponseServiceProvider = new ResponseProvider();
 
-            return $ResponseServiceProvider->preferredFormat($response->getBody());
-        } catch (\Exception $e) {
-            Helper::handleStatusCodes($e->getCode());
-        }
+        return $ResponseServiceProvider->preferredFormat($response->getBody());
+
+
     }
 
     public function getReservationById($reservationId)
     {
-            try {
-                $request_headers = array();
-                $request_headers[] = 'x-api-key: zj4xYmGHwO6j04Umhs8Ve16HNoIvMEP6u0PLcUU8';
-                $request_headers[] = 'Content-Type: application/json';
+        $request_headers = array();
+        $request_headers[] = 'x-api-key: zj4xYmGHwO6j04Umhs8Ve16HNoIvMEP6u0PLcUU8';
+        $request_headers[] = 'Content-Type: application/json';
 
 
-                $url = $this->url . 'reservations/' . $reservationId;
-                $client = new Client();
-                $response = $client->get($url, [
-                    'headers' => ['x-api-key' => env('RedAwningPubKey')]
-                ]);
+        $url = $this->url . 'reservations/' . $reservationId;
+        $client = new Client();
+        $response = $client->get($url, [
+            'headers' => ['x-api-key' => env('RedAwningPubKey')]
+        ]);
 
-                $ResponseServiceProvider = new ResponseProvider();
+        $ResponseServiceProvider = new ResponseProvider();
 
-                return $ResponseServiceProvider->preferredFormat($response->getBody());
-            } catch (\Exception $e) {
-                Helper::handleStatusCodes($e->getCode());
-            }
+        return $ResponseServiceProvider->preferredFormat($response->getBody());
+
     }
 
     public function deleteReservationById($reservationId)
     {
 
-        try {
-            $request_headers = array();
-            $request_headers[] = 'x-api-key: zj4xYmGHwO6j04Umhs8Ve16HNoIvMEP6u0PLcUU8';
-            $request_headers[] = 'Content-Type: application/json';
+        $request_headers = array();
+        $request_headers[] = 'x-api-key: zj4xYmGHwO6j04Umhs8Ve16HNoIvMEP6u0PLcUU8';
+        $request_headers[] = 'Content-Type: application/json';
 
 
-            $url = $this->url . 'reservations/' . $reservationId;
-            $client = new Client();
-            $response = $client->delete($url, [
-                'headers' => ['x-api-key' => env('RedAwningPubKey')]
-            ]);
+        $url = $this->url . 'reservations/' . $reservationId;
+        $client = new Client();
+        $response = $client->delete($url, [
+            'headers' => ['x-api-key' => env('RedAwningPubKey')]
+        ]);
 
-            $ResponseServiceProvider = new ResponseProvider();
+        $ResponseServiceProvider = new ResponseProvider();
 
-            return $ResponseServiceProvider->preferredFormat($response->getBody());
-        } catch (\Exception $e) {
-            Helper::handleStatusCodes($e->getCode());
-        }
+        return $ResponseServiceProvider->preferredFormat($response->getBody());
+
     }
 
     public function getReservationStatus($reservationId)
@@ -524,41 +487,18 @@ class RedAwningController extends Controller
     {
         $endpoint = '/listings/' . $listingId . '/price';
 
-        try {
-            $client = new Client();
-            $response = $client->get($this->url . $endpoint, [
-                'headers' => ['x-api-key' => env('RedAwningPubKey')]
-            ]);
+        $client = new Client();
+        $response = $client->get($this->url . $endpoint, [
+            'headers' => ['x-api-key' => env('RedAwningPubKey')]
+        ]);
 
-            $ResponseServiceProvider = new ResponseProvider();
+        $ResponseServiceProvider = new ResponseProvider();
 
-            return $ResponseServiceProvider->preferredFormat($response->getBody());
+        return $ResponseServiceProvider->preferredFormat($response->getBody());
 
-        } catch (\Exception $exception) {
-            //todo add logging here
-            echo '<pre style="border:solid 1px red">';
-            print_r($exception);
-            echo '</pre>';
-        }
+
     }
 
-    function get_headers_from_curl_response($response)
-    {
-        $headers = array();
-
-        $header_text = substr($response, 0, strpos($response, "\r\n\r\n"));
-
-        foreach (explode("\r\n", $header_text) as $i => $line)
-            if ($i === 0)
-                $headers['http_code'] = $line;
-            else {
-                list ($key, $value) = explode(': ', $line);
-
-                $headers[$key] = $value;
-            }
-
-        return $headers;
-    }
 
 }
 
