@@ -502,6 +502,4 @@ class RedAwningController extends Controller
 
 }
 
-//TODO Finish getReservations, getNewReservation
-//TODO Test getReservationsById
-//TODO Test inputReservationsStatus
+//TODO Test getReservationsStatus
