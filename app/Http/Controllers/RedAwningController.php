@@ -235,49 +235,6 @@ class RedAwningController extends Controller
         return $ResponseServiceProvider->preferredFormat(json_encode($fullListing));
     }
 
-    public function getQuote($listingId, $fromDate, $toDate)
-    {
-        // Send an asynchronous request.
-        $endpoint = 'listings/' . $listingId . '/quote?checkin=' . $fromDate . '&checkout=' . $toDate;
-
-        $request_headers = array();
-        $request_headers[] = 'x-api-key: ' . env('RedAwningPubKey');
-
-        $client = new Client();
-        $response = $client->get($this->url . '/' . $endpoint, [
-            'headers' => ['x-api-key' => env('RedAwningPubKey')]
-        ]);
-
-        $quote = $response->getBody();
-
-        $ResponseServiceProvider = new ResponseProvider();
-        return $ResponseServiceProvider->preferredFormat($response->getBody());
-
-    }
-
-    public function getNewReservation(Request $request)
-    {
-        $body = $request->all();
-
-
-        $url = $this->url . 'reservations';
-        $client = new Client();
-        $response = $client->post($url, [
-            'headers' => ['x-api-key' => env('RedAwningPubKey')],
-            'json' => $body
-        ]);
-
-        echo '<pre style="border:solid 1px red">';
-        print_r($response);
-        echo '</pre>';
-
-        $ResponseServiceProvider = new ResponseProvider();
-
-        return $ResponseServiceProvider->preferredFormat($response->getBody());
-
-
-    }
-
     public function getListingStatus($listingId)
     {
         $endpoint = 'listings/' . $listingId . '/status';
@@ -406,6 +363,49 @@ class RedAwningController extends Controller
         return $ResponseServiceProvider->preferredFormat(json_encode($listings));
     }
 
+    public function getQuote($listingId, $fromDate, $toDate)
+    {
+        // Send an asynchronous request.
+        $endpoint = 'listings/' . $listingId . '/quote?checkin=' . $fromDate . '&checkout=' . $toDate;
+
+        $request_headers = array();
+        $request_headers[] = 'x-api-key: ' . env('RedAwningPubKey');
+
+        $client = new Client();
+        $response = $client->get($this->url . '/' . $endpoint, [
+            'headers' => ['x-api-key' => env('RedAwningPubKey')]
+        ]);
+
+        $quote = $response->getBody();
+
+        $ResponseServiceProvider = new ResponseProvider();
+        return $ResponseServiceProvider->preferredFormat($response->getBody());
+
+    }
+
+    public function getNewReservation(Request $request)
+    {
+        $body = $request->all();
+
+
+        $url = $this->url . 'reservations';
+        $client = new Client();
+        $response = $client->post($url, [
+            'headers' => ['x-api-key' => env('RedAwningPubKey')],
+            'json' => $body
+        ]);
+
+        echo '<pre style="border:solid 1px red">';
+        print_r($response);
+        echo '</pre>';
+
+        $ResponseServiceProvider = new ResponseProvider();
+
+        return $ResponseServiceProvider->preferredFormat($response->getBody());
+
+
+    }
+
     public function getReservations(Request $request)
     {
         $checkin = $request->input('checkin');
@@ -502,8 +502,6 @@ class RedAwningController extends Controller
 
 }
 
-//TODO Move input_headers_from_curl_response to helper
-//TODO Finish inputReservations, inputNewReservation
-//TODO Test inputReservationsById
+//TODO Finish getReservations, getNewReservation
+//TODO Test getReservationsById
 //TODO Test inputReservationsStatus
-//TODO {"Code": "BadRequestError", "Message": "BadRequestError: This listing is already booked for days you have selected"} handle this
