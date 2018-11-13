@@ -280,8 +280,7 @@ class RedAwningController extends Controller
         $endpoint = 'listings/' . $listingId . '/status';
 
         $client = new Client();
-        echo $this->url . $endpoint;
-        exit;
+
         $response = $client->get($this->url . $endpoint, [
             'headers' => ['x-api-key' => env('RedAwningPubKey')]
         ]);

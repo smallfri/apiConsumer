@@ -8,7 +8,7 @@ class RedAwningControllerTest extends TestCase
 {
     public function testListingPrice()
     {
-        $this->json('GET', 'http://homestead.test/api/v1/redAwning/listings/200518/price', [], ['Accept' => 'application/json'])->seeStatusCode(200)
+        $this->json('GET', 'http://apiconsumer.test/api/1.0.0/redAwning/listings/200518/price', [], ['Accept' => 'application/json'])->seeStatusCode(200)
             ->seeJson([
                 'base_minstay' => 1,
             ]);
@@ -16,7 +16,7 @@ class RedAwningControllerTest extends TestCase
 
     public function testListingStatus()
     {
-        $this->json('GET', 'http://homestead.test/api/v1/redAwning/listings/200518/status', [], ['Accept' => 'application/json'])->seeStatusCode(200)
+        $this->json('GET', 'http://apiconsumer.test/api/1.0.0/redAwning/listings/200518/status', [], ['Accept' => 'application/json'])->seeStatusCode(200)
             ->seeJson([
                 'bookable' => true,
             ]);
@@ -24,7 +24,7 @@ class RedAwningControllerTest extends TestCase
 
     public function testListingAvailability()
     {
-        $this->json('GET', 'http://homestead.test/api/v1/redAwning/listings/200518/availability', [], ['Accept' => 'application/json'])->seeStatusCode(200)
+        $this->json('GET', 'http://apiconsumer.test/api/1.0.0/redAwning/listings/200518/availability', [], ['Accept' => 'application/json'])->seeStatusCode(200)
             ->seeJson([
                 'period_start' => '2019-02-05',
             ]);
@@ -32,7 +32,7 @@ class RedAwningControllerTest extends TestCase
 
     public function testListingCico()
     {
-        $this->json('GET', 'http://homestead.test/api/v1/redAwning/listings/200518/cico', [], ['Accept' => 'application/json'])->seeStatusCode(200)
+        $this->json('GET', 'http://apiconsumer.test/api/1.0.0/redAwning/listings/200518/cico', [], ['Accept' => 'application/json'])->seeStatusCode(200)
             ->seeJson([
                 'start_date' => '2018-07-12',
             ]);
@@ -41,7 +41,7 @@ class RedAwningControllerTest extends TestCase
     public function testListingContent()
     {
         return $this->markTestSkipped(); //TODO fix
-        $this->json('GET', 'http://homestead.test/api/v1/redAwning/listings/200508/content', [], ['Accept' => 'application/json'])->seeStatusCode(200)
+        $this->json('GET', 'http://apiconsumer.test/api/1.0.0/redAwning/listings/200508/content', [], ['Accept' => 'application/json'])->seeStatusCode(200)
             ->seeJson([
                 'start_date' => '2018-07-12',
             ]);
@@ -49,7 +49,7 @@ class RedAwningControllerTest extends TestCase
 
     public function testListingCicotimes()
     {
-        $this->json('GET', 'http://homestead.test/api/v1/redAwning/listings/200518/cicotimes', [], ['Accept' => 'application/json'])->seeStatusCode(200)
+        $this->json('GET', 'http://apiconsumer.test/api/1.0.0/redAwning/listings/200518/cicotimes', [], ['Accept' => 'application/json'])->seeStatusCode(200)
             ->seeJson([
                 'check_in_start' => 57600,
             ]);
@@ -57,7 +57,7 @@ class RedAwningControllerTest extends TestCase
 
     public function testListingPolicies()
     {
-        $this->json('GET', 'http://homestead.test/api/v1/redAwning/listings/69395/policies', [], ['Accept' => 'application/json'])->seeStatusCode(200)
+        $this->json('GET', 'http://apiconsumer.test/api/1.0.0/redAwning/listings/69395/policies', [], ['Accept' => 'application/json'])->seeStatusCode(200)
             ->seeJson([
                 'name' => '[C] FREE CANCEL 60 - MANAGER',
             ]);
@@ -66,7 +66,7 @@ class RedAwningControllerTest extends TestCase
     public function testListingReservations()
     {
         return $this->markTestSkipped(); //TODO fix
-        $this->json('GET', 'http://homestead.test/api/v1/redAwning/reservations', [], ['Accept' => 'application/json'])->seeStatusCode(200)
+        $this->json('GET', 'http://apiconsumer.test/api/1.0.0/redAwning/reservations', [], ['Accept' => 'application/json'])->seeStatusCode(200)
             ->seeJson([
                 'name' => '[C] FREE CANCEL 60 - MANAGER',
             ]);
@@ -74,7 +74,7 @@ class RedAwningControllerTest extends TestCase
 
     public function testListingQuote()
     {
-        $this->json('GET', 'http://homestead.test/api/v1/redAwning/quote/200510/from_date/2020-08-27/to_date/2020-09-17', [], ['Accept' => 'application/json'])->seeStatusCode(200)
+        $this->json('GET', 'http://apiconsumer.test/api/1.0.0/redAwning/quote/200510/from_date/2020-08-27/to_date/2020-09-17', [], ['Accept' => 'application/json'])->seeStatusCode(200)
             ->seeJson([
                 'checkin_date' => '2020-08-27',
             ]);
@@ -83,7 +83,7 @@ class RedAwningControllerTest extends TestCase
     public function testListingPropertyDetail()
     {
         $this->markTestSkipped(); //TODO fix
-        $this->json('GET', 'http://homestead.test/api/v1/redAwning/listings/200518/property_details')->seeStatusCode(200)
+        $this->json('GET', 'http://apiconsumer.test/api/1.0.0/redAwning/listings/200518/property_details')->seeStatusCode(200)
             ->seeJson([
                 'url_alias' => 'rental-property/chophouse-row-test-property-seattle',
             ]);
@@ -122,7 +122,7 @@ class RedAwningControllerTest extends TestCase
 
         $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, 'http://homestead.test/api/v1/redAwning/reservations');
+        curl_setopt($ch, CURLOPT_URL, 'http://apiconsumer.test/api/1.0.0/redAwning/reservations');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
         curl_setopt($ch, CURLOPT_HEADER, FALSE);
         curl_setopt($ch, CURLOPT_POST, TRUE);
@@ -137,8 +137,8 @@ class RedAwningControllerTest extends TestCase
 
         $actual = 'We\'re sorry but this quote has expired. ';
 
-        if (strpos($res->message, 'quote has expired.') > 1) {
-            preg_match('/( BadRequestError: )(.*)(Please)/', $res->message, $output_array);
+        if (strpos($res->Message, $actual) > 1) {
+            preg_match('/( BadRequestError: )(.*)(Please)/', $res->Message, $output_array);
 
             $this->assertEquals($actual, $output_array[2]);
 
