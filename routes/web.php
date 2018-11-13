@@ -3,7 +3,7 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->group(['prefix' => 'api/v1'], function () use ($router) {
+$router->group(['prefix' => 'api/1.0.0'], function () use ($router) {
 
     $router->group(['prefix' => 'bookingPal'], function () use ($router) {
 
@@ -31,11 +31,11 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
 
         $router->get('changes', ['uses' => 'RedAwningController@getChanges']);
 
-        $router->get('listings/{listingId}/property_details', ['uses' => 'RedAwningController@getDetailedListing']);
+        $router->get('listings/{listingId}/property_details', ['uses' => 'RedAwningController@getListingDetails']);
 
         $router->get('quote/{listingId}/from_date/{fromDate}/to_date/{toDate}', ['uses' => 'RedAwningController@getQuote']); //tested
 
-        $router->get('listings/{listingId}', ['uses' => 'RedAwningController@getListing']); //tested
+        $router->get('listings/{listingId}', ['uses' => 'RedAwningController@getListingById']); //tested
 
         $router->get('listings/{listingId}/status', ['uses' => 'RedAwningController@getListingStatus']); //tested
 
@@ -61,7 +61,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
 
         $router->delete('reservation/{reservationId}/delete', ['uses' => 'RedAwningController@deleteReservationById']);
 
-        $router->get('reservationstatus/{reservationId}', ['uses' => 'RedAwningController@getReservationStatus']);
+        $router->get('reservation/{reservationId}/status', ['uses' => 'RedAwningController@getReservationStatus']);
 
 
     });

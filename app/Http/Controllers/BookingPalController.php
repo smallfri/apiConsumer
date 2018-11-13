@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use SimpleXMLElement;
@@ -24,7 +25,7 @@ class BookingPalController extends Controller
     }
 
     /**
-     * XML feed of all products
+     * XML feed of all MBP products
      */
     public function getAllProducts($type) //api/v1/products
     {
@@ -49,7 +50,7 @@ class BookingPalController extends Controller
 
 
     /**
-     * Gets product id by name
+     * Gets MBP product id by name
      * @param $name
      * @return mixed
      */
@@ -74,6 +75,10 @@ class BookingPalController extends Controller
         }
     }
 
+    /**
+     * gets MBP property details
+     * @param $productId
+     */
     public function getPropertyDetails($productId)
     {
         $pos = env('MyBookingPalPOS', true);
@@ -102,6 +107,10 @@ class BookingPalController extends Controller
         $promise->wait();
     }
 
+    /**
+     * gets MBP property summary
+     * @param $productId
+     */
     public function getPropertySummary($productId)
     {
         $pos = env('MyBookingPalPOS', true);
@@ -148,6 +157,12 @@ class BookingPalController extends Controller
         $promise->wait();
     }
 
+    /**
+     * gets MBP quote
+     * @param $productId
+     * @param $fromDate
+     * @param $toDate
+     */
     public function getQuote($productId, $fromDate, $toDate)
     {
         $pos = env('MyBookingPalPOS', true);
@@ -179,6 +194,12 @@ class BookingPalController extends Controller
         $promise->wait();
     }
 
+    /**
+     * get MBP prices
+     * @param $productId
+     * @param $fromDate
+     * @param $toDate
+     */
     public function getPrices($productId, $fromDate, $toDate)
     {
         $pos = env('MyBookingPalPOS', true);
@@ -208,6 +229,12 @@ class BookingPalController extends Controller
     }
 
 
+    /**
+     * gets MBP availability
+     * @param $productId
+     * @param $fromDate
+     * @param $toDate
+     */
     public function getAvailability($productId, $fromDate, $toDate)
     {
 
@@ -237,6 +264,11 @@ class BookingPalController extends Controller
         $promise->wait();
     }
 
+
+    /**
+     * creates a MBP booking
+     * @param Request $request
+     */
     public function createBooking(Request $request)
     {
         if ($request->isMethod('post')) {
@@ -262,7 +294,7 @@ class BookingPalController extends Controller
             $xml_data = new SimpleXMLElement('<?xml version="1.0"?><data></data>');
 
             // function call to convert array to xml
-            $this->array_to_xml($output, $xml_data);
+            Helper::array_to_xml($output, $xml_data);
 
             header("Content-type: text/xml");
 
@@ -271,21 +303,6 @@ class BookingPalController extends Controller
         }
 
 
-    }
-
-    public function array_to_xml($data, &$xml_data)
-    {
-        foreach ($data as $key => $value) {
-            if (is_numeric($key)) {
-                $key = 'item' . $key; //dealing with <0/>..<n/> issues
-            }
-            if (is_array($value)) {
-                $subnode = $xml_data->addChild($key);
-                $this->array_to_xml($value, $subnode);
-            } else {
-                $xml_data->addChild("$key", htmlspecialchars("$value"));
-            }
-        }
     }
 
 }
