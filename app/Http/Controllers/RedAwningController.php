@@ -50,6 +50,332 @@ class RedAwningController extends Controller
         $this->url = $url = env('RedAwningURL');
     }
 
+    /**
+     * get RA listings from API
+     * @param $limit
+     * @param $offset
+     * @return ResponseProvider
+     * @response {
+    "listing_id": "200508",
+    "url_alias": "rental-property/chophouse-row-test-property-seattle",
+    "content": {
+    "title": "Chophouse Row - Test Property",
+    "description": "Chophouse Row combines a historic auto row building with a new steel and concrete loft office building. Its pedestrian alley and courtyard host a collection of local tenants that focus on delivering morning-into-evening food, beverage, and retail options to both residents and visitors to the neighborhood.",
+    "property_type": "residence",
+    "special_terms": "",
+    "view": "",
+    "bathrooms": 1,
+    "bedrooms": 2,
+    "beds_king": 1,
+    "beds_queen": 1,
+    "beds_double": 0,
+    "beds_twin": 0,
+    "beds_sofa": 0,
+    "beds_bunk": 0,
+    "beds_air_mattress": 0,
+    "kitchen": "none",
+    "pool": false,
+    "children_ok": "yes",
+    "room_configurations": [
+    {
+    "name": "Bedroom 2",
+    "beds": [
+    "King Bed"
+    ]
+    },
+    {
+    "name": "Bedroom 1",
+    "beds": [
+    "Queen Bed"
+    ]
+    }
+    ],
+    "sleep_max": 4,
+    "pets_allowed": true,
+    "smoking_allowed": false,
+    "amenities": [
+    "Balcony",
+    "Blender",
+    "Book Collection",
+    "Internet -- Wireless",
+    "Shower",
+    "Terrace"
+    ],
+    "location": {
+    "address": {
+    "street_address": "1424 11th Avenue",
+    "street_address2": "",
+    "city": "Seattle",
+    "province": "WA",
+    "postal_code": "98122",
+    "country": "us"
+    },
+    "geo_code": {
+    "lat": 47.6137,
+    "lng": -122.3177
+    }
+    },
+    "handicap_accessible": false,
+    "square_feet": 0,
+    "photos": [
+    {
+    "url": "https://stage.redawning.com/sites/default/files/rental_property/200508/44a3d4a54b60e178a30839fc5d46e992_None.jpeg",
+    "order": 0,
+    "tags": [
+    "Pottery,Vase,Path,Sidewalk,Walkway"
+    ],
+    "title": "",
+    "width": 667,
+    "height": 1000,
+    "timestamp": "2018-07-05T16:56:52+00:00"
+    },
+    {
+    "url": "https://stage.redawning.com/sites/default/files/rental_property/200508/a5f7fd7db56f7a1ae16a68968e97d212_None.jpeg",
+    "order": 1,
+    "tags": [
+    "Chair,Furniture,Food,Restaurant,Balcony"
+    ],
+    "title": "",
+    "width": 1000,
+    "height": 669,
+    "timestamp": "2018-07-05T16:57:09+00:00"
+    },
+    {
+    "url": "https://stage.redawning.com/sites/default/files/rental_property/200508/d4aa5d518ba5e225e2841c7b6b27a126_None.jpeg",
+    "order": 2,
+    "tags": [
+    "Path,Sidewalk,Walkway,Vine,Building"
+    ],
+    "title": "",
+    "width": 661,
+    "height": 1000,
+    "timestamp": "2018-07-05T16:57:26+00:00"
+    }
+    ]
+    },
+    "cico": [
+    {
+    "start_date": "2018-07-05",
+    "end_date": "2018-12-31",
+    "check_in_allowed": {
+    "monday": true,
+    "tuesday": true,
+    "wednesday": true,
+    "thursday": true,
+    "friday": true,
+    "saturday": true,
+    "sunday": true
+    },
+    "check_out_allowed": {
+    "monday": true,
+    "tuesday": true,
+    "wednesday": true,
+    "thursday": true,
+    "friday": true,
+    "saturday": true,
+    "sunday": true
+    }
+    },
+    {
+    "start_date": "2019-01-01",
+    "end_date": "2019-03-31",
+    "check_in_allowed": {
+    "monday": false,
+    "tuesday": true,
+    "wednesday": false,
+    "thursday": true,
+    "friday": false,
+    "saturday": false,
+    "sunday": false
+    },
+    "check_out_allowed": {
+    "monday": true,
+    "tuesday": true,
+    "wednesday": true,
+    "thursday": true,
+    "friday": true,
+    "saturday": true,
+    "sunday": true
+    }
+    }
+    ],
+    "cico_times": {
+    "check_in_start": 54000,
+    "check_in_end": 61200,
+    "check_out": 39600
+    },
+    "price": {
+    "currency": "USD",
+    "base_weekday_price": 1.1,
+    "base_weekend_price": 1.1,
+    "base_weekly_price": 1.1,
+    "base_minstay": 1,
+    "other": 1,
+    "tax_percent": 11,
+    "nightly_tax": 0,
+    "cleaning_fee": 352.5
+    },
+    "price_periods": [
+    {
+    "period_start": "2018-07-05",
+    "period_end": "2018-12-31",
+    "weekday_price": 245.3,
+    "weekend_price": 258.5,
+    "weekly_price": 221.1,
+    "minstay": 2,
+    "price_period_id": "676838508",
+    "name": "Price Period 676838508"
+    }
+    ],
+    "availability": [
+    {
+    "period": {
+    "period_start": "2030-04-01",
+    "period_end": "2030-04-01",
+    "type": "NotAvailable"
+    }
+    },
+    {
+    "period": {
+    "period_start": "2018-12-25",
+    "period_end": "2018-12-26",
+    "type": "NotAvailable"
+    }
+    },
+    {
+    "period": {
+    "period_start": "2019-01-01",
+    "period_end": "2023-07-05",
+    "type": "NotAvailable"
+    }
+    },
+    {
+    "period": {
+    "period_start": "2018-12-16",
+    "period_end": "2018-12-22",
+    "type": "NotAvailable"
+    }
+    },
+    {
+    "period": {
+    "period_start": "2030-05-19",
+    "period_end": "2030-05-27",
+    "type": "NotAvailable"
+    }
+    },
+    {
+    "period": {
+    "period_start": "2018-12-07",
+    "period_end": "2018-12-08",
+    "type": "NotAvailable"
+    }
+    },
+    {
+    "period": {
+    "period_start": "2030-06-08",
+    "period_end": "2030-06-14",
+    "type": "NotAvailable"
+    }
+    },
+    {
+    "period": {
+    "period_start": "2018-12-28",
+    "period_end": "2018-12-29",
+    "type": "NotAvailable"
+    }
+    },
+    {
+    "period": {
+    "period_start": "2030-04-27",
+    "period_end": "2030-05-08",
+    "type": "NotAvailable"
+    }
+    },
+    {
+    "period": {
+    "period_start": "2030-05-09",
+    "period_end": "2030-05-17",
+    "type": "NotAvailable"
+    }
+    },
+    {
+    "period": {
+    "period_start": "2018-12-10",
+    "period_end": "2018-12-13",
+    "type": "NotAvailable"
+    }
+    }
+    ],
+    "created": "2018-07-05T17:15:28.000Z",
+    "updated": "2018-11-12T18:31:01.000Z",
+    "status": {
+    "published": true,
+    "bookable": true,
+    "open": true
+    },
+    "photos": [],
+    "policies": [],
+    "repconfig": []
+    }
+     *
+     *
+     */
+    public function getListingsFromAPI($limit, $offset)
+    {
+
+        // Setting the HTTP Request Headers
+        $request_headers = array();
+        $request_headers[] = 'x-api-key: ' . env('RedAwningPubKey');
+
+        // Performing the HTTP request
+        $ch = curl_init(env('RedAwningURL') . '/listings?limit=' . $limit . '&offset=' . $offset . '&tid=' . rand(1000, 10));
+
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $request_headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HEADER, 1);
+
+        $response = curl_exec($ch);
+
+        $headers = Helper::get_headers_from_curl_response($response);
+        $xTotalCount = $headers['x-total-count'];
+
+        $x = $offset = 1;
+        $limit = 5; //change this for more results at one time
+        while ($x <= round($xTotalCount / $limit)) {
+
+            if ($x == 1) {
+
+                $offset = 0;
+            } else {
+                $offset = $offset + $limit;
+            }
+
+            $x++;
+
+            $random = rand(1000, 10);
+            // Performing the HTTP request
+
+            $ch = curl_init(env('RedAwningURL') . 'listings?limit=' . $limit . '&offset=' . $offset . '&tid=' . $random);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $request_headers);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+            $response = curl_exec($ch);
+            curl_close($ch);
+
+            $listings = json_decode($response, true);
+            $listingsResponse = [];
+            foreach ($listings AS $listing) {
+
+                $listingsResponse[] = $listing;
+
+            }
+
+            $ResponseServiceProvider = new ResponseProvider();
+            return $ResponseServiceProvider->preferredFormat($listingsResponse);
+        }
+
+
+    }
 
     /**
      * Here we call listings to load the database, only done once, then call changes
@@ -101,10 +427,6 @@ class RedAwningController extends Controller
 
             foreach ($listings AS $listing) {
 
-//                echo '<pre style="border:solid 1px blue">';
-//                print_r($listing['listing_id']);
-//                echo '</pre>';
-
                 RAListing::updateOrCreate([
                     'listing_id' => $listing['listing_id'],
                     'url_alias' => $listing['url_alias'],
@@ -154,7 +476,6 @@ class RedAwningController extends Controller
                 }
 
                 foreach ($listing['content']['photos'] AS $photo) {
-
                     RAPhoto::updateOrCreate([
                         'redawning_listing_id' => $listing['listing_id'],
                         'url' => $photo['url'],
@@ -179,7 +500,6 @@ class RedAwningController extends Controller
                 }
 
                 foreach ($listing['price_periods'] as $price_period) {
-
                     RAPricePeriod::updateOrCreate([
                         'redawning_listing_id' => $listing['listing_id'],
                         'period_start' => $price_period['period_start'],
@@ -191,7 +511,6 @@ class RedAwningController extends Controller
                         'name' => $price_period['name']
                     ]);
                 }
-
                 foreach ($listing['availability'] as $row) {
 
                     RAAvailability::updateOrCreate([
@@ -201,72 +520,37 @@ class RedAwningController extends Controller
 
                 }
             }
-
         }
-
         return '{"status":"success"}';
     }
 
     /**
-     * display RW listing
+     * get RA listing import
      * @param $listingId
      * @return string
      * @response {
      *      "status":"success"
      * }
      */
-    public function getListings()
+    public function getTriggerListingsImport()
     {
         return $this->absorbListings('listings');
     }
 
     /**
-     * get RW changes
+     * get RA changes
      * @return string
      * @response {
      *      "status":"success"
      * }
      */
-    public function getChanges()
+    public function getTriggerChangesImport()
     {
         return $this->absorbListings('changes');
     }
 
-
-//    public function displayListing($listingId)
-//    {
-//
-//        $listing = RAListing::find($listingId)->first()->toArray();
-//        $listingAvailability = RAListing::find($listingId)->availability()->get()->toArray();
-//        $listingCico = RAListing::find($listingId)->cico()->get()->toArray();
-//        $listingContent = RAListing::find($listingId)->content()->get()->toArray();
-//        $listingPhotos = RAListing::find($listingId)->photos()->get()->toArray();
-//        $listingPricePeriod = RAListing::find($listingId)->priceperiod()->get()->toArray();
-//        $listingRoomConfiguration = RAListing::find($listingId)->roomconfiguration()->get()->toArray();
-//
-//        $fullListing =
-//            ['listing' =>
-//                [
-//                    'url_alias' => $listing['url_alias'],
-//                    'cico_times' => json_decode($listing['cico_times'], true),
-//                    'price' => json_decode($listing['price'], true),
-//                    'status' => json_decode($listing['status'], true),
-//                    'availability' => $listingAvailability,
-//                    'cico' => $listingCico,
-//                    'content' => $listingContent,
-//                    'photos' => $listingPhotos,
-//                    'price_period' => $listingPricePeriod,
-//                    'room_configuration' => $listingRoomConfiguration
-//
-//                ]
-//            ];
-//
-//        $ResponseServiceProvider = new ResponseProvider();
-//        return $ResponseServiceProvider->preferredFormat(json_encode($fullListing));
-//    }
-
     /**
-     * display RW listing status
+     * get RA changes import
      * @param $listingId
      * @return responseProvider
      * @response  {
@@ -291,7 +575,7 @@ class RedAwningController extends Controller
     }
 
     /**
-     * get RW listing availability
+     * get RA listing availability
      * @param $listingId
      * @return responseProvider
      * @response {
@@ -331,7 +615,7 @@ class RedAwningController extends Controller
     }
 
     /**
-     * get RW listing details
+     * get RA listing details
      * @param $listingId
      * @return responseProvider
      */
@@ -349,7 +633,7 @@ class RedAwningController extends Controller
     }
 
     /**
-     * get RW listing by id
+     * get RA listing by id
      * @param $listingId
      * @return responseProvider
      * @response
@@ -958,6 +1242,9 @@ class RedAwningController extends Controller
      * get RA listing summaries
      * @param Request $request
      * @return responseProvider
+     * @bodyParam page integer required Number of pages returned
+     * @bodyParam limit string required Page limit
+     * @bodyParam index  string required 1 for api results, 0 for db result
      * @response [
                     {
                         "listing_id": 200508,
@@ -1065,7 +1352,7 @@ class RedAwningController extends Controller
     }
 
     /**
-     * create RA new reservation
+     * post RA new reservation
      * @param Request $request
      * @return responseProvider
      * @response {
@@ -1099,6 +1386,17 @@ class RedAwningController extends Controller
      *          "USD"
      *      }
      * }
+     *
+     * @bodyParam quote_id integer required The quote ID.
+     * @bodyParam first_name string required The first name
+     * @bodyParam last_name string required The last name
+       @bodyParam address array required
+     * ["street_address": "1234 S Testing St.", "city": "Des Moines", "province": "WA", "postal_code": "98198", "country": "US"]
+     * @bodyParam home_phone string required The home phone number.
+     * @bodyParam mobile_phone string required The mobile phone number.
+     * @bodyParam email string required The email address.
+     * @bodyParam payments array required
+     * [{"method": "creditcard", "method_details": { "creditcard_number": "4111111111111111", "cvv": "123", "expiration_month": 8, "expiration_year": 2020},"amount": 1977.95,"currency": "USD"}]
      */
     public function getNewReservation(Request $request)
     {
@@ -1274,10 +1572,28 @@ class RedAwningController extends Controller
      * @return responseProvider
      *
      * @response {
-     *  "id": 4,
-     *  "name": "Jessica Jones",
-     *  "roles": ["admin"]
-     * }
+    "price": {
+    "currency": "USD",
+    "base_weekday_price": 100,
+    "base_weekend_price": 150,
+    "base_weekly_price": 100,
+    "base_minstay": 2,
+    "cleaning_fee": 150,
+    "other": 0,
+    "tax_percent": 10
+    },
+    "price_periods": [
+    {
+    "period_start": "2017-01-01",
+    "period_end": "2017-12-31",
+    "weekday_price": 102,
+    "weekend_price": 151,
+    "weekly_price": 620,
+    "minstay": 2,
+    "price_period_id": "371711549"
+    }
+    ]
+    }
      */
     public function getListingPrice($listingId)
     {
@@ -1298,10 +1614,5 @@ class RedAwningController extends Controller
 
 }
 
-//TODO write docs
 //TODO set up deployer
 //TODO fix room config table
-
-
-//TODO ListingDetails response
-//TODO getListingStatus response

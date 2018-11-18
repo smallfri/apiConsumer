@@ -2,6 +2,8 @@
 
 return [
 
+    'url' => env('APP_URL', 'http://trialtesting.com'),
+
     /*
      * The output path for the generated documentation.
      */
@@ -153,5 +155,5 @@ return [
      * If you want to use this, please be aware of the following rules:
      * - size: 230 x 52
      */
-    'logo' => false,
+    'logo' => base_path('') . '/public/images/logo.png'
 ];

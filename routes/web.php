@@ -7,17 +7,19 @@ $router->group(['prefix' => 'api/1.0.0'], function () use ($router) {
 
     $router->group(['prefix' => 'bookingPal'], function () use ($router) {
 
+    $router->get('location/getlocations/{term}', ['uses' => 'BookingPalController@getLocationsByTerm']);
+
+    $router->get('locations/getinfo/{location}', ['uses' => 'BookingPalController@getLocationsGetInfo']);
+
     $router->get('type/{type}', ['uses' => 'BookingPalController@getAllProducts']);
 
-    $router->get('name/{name}', ['uses' => 'BookingPalController@getProductIDByName']);
+    $router->get('{productId}/property/details', ['uses' => 'BookingPalController@getPropertyDetails']);
 
-    $router->get('{productId}/property_details', ['uses' => 'BookingPalController@getPropertyDetails']);
+    $router->get('{productId}/propertysummary', ['uses' => 'BookingPalController@getPropertySummary']);
 
-    $router->get('{productId}/property_summary', ['uses' => 'BookingPalController@getPropertySummary']);
+    $router->get('{productId}/quote/from_date/{fromDate}/to_date/{toDate}', ['uses' => 'BookingPalController@getQuote']);
 
-    $router->get('{productId}/prices/from_date/{fromDate}/to_date/{toDate}', ['uses' => 'BookingPalController@getQuote']);
-
-    $router->get('{productId}/quote/from_date/{fromDate}/to_date/{toDate}', ['uses' => 'BookingPalController@getPrices']);
+    $router->get('{productId}/prices/from_date/{fromDate}/to_date/{toDate}', ['uses' => 'BookingPalController@getPrices']);
 
     $router->get('{productId}/availability/from_date/{fromDate}/to_date/{toDate}', ['uses' => 'BookingPalController@getAvailability']);
 
@@ -27,11 +29,11 @@ $router->group(['prefix' => 'api/1.0.0'], function () use ($router) {
 
     $router->group(['prefix' => 'redAwning'], function () use ($router) {
 
-        $router->get('listings', ['uses' => 'RedAwningController@getListings']);
+        $router->get('listings/type/api/limit/{limit}/offset/{offset}', ['uses' => 'RedAwningController@getListingsFromAPI']);
 
-        $router->get('changes', ['uses' => 'RedAwningController@getChanges']);
+        $router->get('listings', ['uses' => 'RedAwningController@getTriggerListingsImport']);
 
-        $router->get('listings/{listingId}/property_details', ['uses' => 'RedAwningController@getListingDetails']);
+        $router->get('changes', ['uses' => 'RedAwningController@getTriggerChangesImport']);
 
         $router->get('quote/{listingId}/from_date/{fromDate}/to_date/{toDate}', ['uses' => 'RedAwningController@getQuote']); //tested
 
