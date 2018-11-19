@@ -51,7 +51,8 @@ class RedAwningController extends Controller
     }
 
     /**
-     * get RA listings from API
+     * get listings from API
+     * @group RedAwning
      * @param $limit
      * @param $offset
      * @return ResponseProvider
@@ -525,7 +526,7 @@ class RedAwningController extends Controller
     }
 
     /**
-     * get RA listing import
+     * get listing import
      * @param $listingId
      * @return string
      * @response {
@@ -538,7 +539,7 @@ class RedAwningController extends Controller
     }
 
     /**
-     * get RA changes
+     * get changes
      * @return string
      * @response {
      *      "status":"success"
@@ -550,7 +551,7 @@ class RedAwningController extends Controller
     }
 
     /**
-     * get RA changes import
+     * get changes import
      * @param $listingId
      * @return responseProvider
      * @response  {
@@ -575,7 +576,8 @@ class RedAwningController extends Controller
     }
 
     /**
-     * get RA listing availability
+     * get listing availability
+     * @group RedAwning
      * @param $listingId
      * @return responseProvider
      * @response {
@@ -615,7 +617,8 @@ class RedAwningController extends Controller
     }
 
     /**
-     * get RA listing details
+     * @group RedAwning
+     * get listing details
      * @param $listingId
      * @return responseProvider
      */
@@ -633,7 +636,8 @@ class RedAwningController extends Controller
     }
 
     /**
-     * get RA listing by id
+     * get listing by id
+     * @group RedAwning
      * @param $listingId
      * @return responseProvider
      * @response
@@ -1024,7 +1028,8 @@ class RedAwningController extends Controller
     }
 
     /**
-     * get RA listing checkin/checkout
+     * get listing checkin/checkout
+     * @group RedAwning
      * @param $listingId
      * @return responseProvider
      * @response [
@@ -1134,7 +1139,8 @@ class RedAwningController extends Controller
     }
 
     /**
-     * get RA checkin/checkout times
+     * get checkin/checkout times
+     * @group RedAwning
      * @param $listingId
      * @return responseProvider
        @response
@@ -1159,7 +1165,8 @@ class RedAwningController extends Controller
     }
 
     /**
-     * get RA listing content
+     * get listing content
+     * @group RedAwning
      * @param $listingId
      * @return responseProvider
      * @response
@@ -1205,8 +1212,8 @@ class RedAwningController extends Controller
     }
 
     /**
-     * get RA listing policies
-     *
+     * get listing policies
+     * @group RedAwning
      * @param $listingId
      * @return responseProvider
      * @response  [
@@ -1239,7 +1246,8 @@ class RedAwningController extends Controller
     }
 
     /**
-     * get RA listing summaries
+     * get listing summaries
+     * @group RedAwning
      * @param Request $request
      * @return responseProvider
      * @bodyParam page integer required Number of pages returned
@@ -1313,7 +1321,8 @@ class RedAwningController extends Controller
     }
 
     /**
-     * get RA quote
+     * get quote
+     * @group RedAwning
      * @param $listingId
      * @param $fromDate
      * @param $toDate
@@ -1352,7 +1361,8 @@ class RedAwningController extends Controller
     }
 
     /**
-     * post RA new reservation
+     * post new reservation
+     * @group RedAwning
      * @param Request $request
      * @return responseProvider
      * @response {
@@ -1418,7 +1428,8 @@ class RedAwningController extends Controller
     }
 
     /**
-     * get RA reservations
+     * get reservations
+     * @group RedAwning
      * @param Request $request
      * @return string
      * @response [
@@ -1474,7 +1485,8 @@ class RedAwningController extends Controller
     }
 
     /**
-     * get RA reservation by id
+     * get reservation by id
+     * @group RedAwning
      * @param $reservationId
      * @return responseProvider
      * @response {
@@ -1523,7 +1535,8 @@ class RedAwningController extends Controller
     }
 
     /**
-     * delete RA reservation by id
+     * delete  reservation by id
+     * @group RedAwning
      * @param $reservationId
      * @return responseProvider
      * @response {
@@ -1546,7 +1559,8 @@ class RedAwningController extends Controller
     }
 
     /**
-     * get RA reservation status
+     * get reservation status
+     * @group RedAwning
      * @param $reservationId
      * @return responseProvider
      * @response {
@@ -1567,7 +1581,8 @@ class RedAwningController extends Controller
     }
 
     /**
-     * get RA listing price
+     * get listing price
+     * @group RedAwning
      * @param $listingId
      * @return responseProvider
      *
