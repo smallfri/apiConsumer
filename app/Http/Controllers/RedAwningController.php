@@ -527,6 +527,7 @@ class RedAwningController extends Controller
 
     /**
      * get listing import
+     * @group RedAwning
      * @param $listingId
      * @return string
      * @response {
@@ -540,6 +541,7 @@ class RedAwningController extends Controller
 
     /**
      * get changes
+     * @group RedAwning
      * @return string
      * @response {
      *      "status":"success"
@@ -552,6 +554,7 @@ class RedAwningController extends Controller
 
     /**
      * get changes import
+     * @group RedAwning
      * @param $listingId
      * @return responseProvider
      * @response  {
@@ -617,8 +620,8 @@ class RedAwningController extends Controller
     }
 
     /**
-     * @group RedAwning
      * get listing details
+     * @group RedAwning
      * @param $listingId
      * @return responseProvider
      */

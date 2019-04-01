@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Helper;
 use App\ResponseProvider;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
-use SimpleXMLElement;
-use SoapBox\Formatter\Formatter;
 
 /**
  * Class BookingPalController
@@ -23,6 +20,8 @@ class BookingPalController extends Controller
     }
 
     /**
+     * Gets All Products
+     * @group BookingPal
      * @param $type
      * @return ResponseProvider
      * @response {
@@ -117,7 +116,9 @@ class BookingPalController extends Controller
     }
 
     /**
+     * Get Locations by Term
      * @param $name
+     * @group BookingPal
      * @return responseProvider
      * @response [
             {
@@ -178,6 +179,8 @@ class BookingPalController extends Controller
     }
 
     /**
+     * Gets Locations
+     * @group BookingPal
      * @param $location
      * @return /App/ResponseProvider
      *
@@ -220,6 +223,7 @@ class BookingPalController extends Controller
 
     /**
      * gets MBP property details
+     * @group BookingPal
      * @param $productId
      * @response {
             "property_response": {
@@ -350,6 +354,7 @@ class BookingPalController extends Controller
 
     /**
      * gets MBP property summary
+     * @group BookingPal
      * @param $productId
      * @response {
             "property_response": {
@@ -488,6 +493,7 @@ class BookingPalController extends Controller
 
     /**
      * gets MBP quote
+     * @group BookingPal
      * @param $productId
      * @param $fromDate
      * @param $toDate
@@ -606,6 +612,7 @@ class BookingPalController extends Controller
 
     /**
      * get MBP prices
+     * @group BookingPal
      * @param $productId
      * @param $fromDate
      * @param $toDate
@@ -655,6 +662,7 @@ class BookingPalController extends Controller
 
     /**
      * gets MBP availability
+     * @group BookingPal
      * @param $productId
      * @param $fromDate
      * @param $toDate
@@ -711,7 +719,9 @@ class BookingPalController extends Controller
 
 
     /**
-     * creates a MBP booking
+     * Create a Booking Request
+     * @group BookingPal
+     *
      * @param Request $request
      */
     public function createBooking(Request $request)
