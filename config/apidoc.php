@@ -2,7 +2,7 @@
 
 return [
 
-    'url' => env('APP_URL', 'http://trialtesting.com/condoworld/public/'),
+    'url' => env('APP_URL', 'http://condo-world-engine.com/public/'),
 
     /*
      * The output path for the generated documentation.

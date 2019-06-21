@@ -47,6 +47,7 @@ class RedAwningController extends Controller
      */
     public function __construct()
     {
+        $this->middleware('BasicAuth');
         $this->url = $url = env('RedAwningURL');
     }
 
@@ -428,6 +429,8 @@ class RedAwningController extends Controller
 
             foreach ($listings AS $listing) {
 
+//                dd($listing);
+
                 RAListing::updateOrCreate([
                     'listing_id' => $listing['listing_id'],
                     'url_alias' => $listing['url_alias'],
@@ -436,7 +439,7 @@ class RedAwningController extends Controller
                     'cico_times' => json_encode($listing['cico_times']),
                     'price' => str_limit(json_encode($listing['price'],255)),
                     'status' => json_encode($listing['status']),
-                    'photos' => json_encode($listing['photos']),
+//                    'photos' => json_encode($listing['photos']),
                     'policies' => json_encode($listing['policies']),
                     'repconfig' => json_encode($listing['repconfig'])
                 ]);

@@ -5,27 +5,44 @@ $router->get('/', function () use ($router) {
 
 
 
-$router->group(['prefix'=>'api/1.0.0/', 'middleware' => 'BasicAuth', 'namespace' => 'App\Http\Controllers'], function($router) {
+$router->group(['prefix'=>'api/1.0.0/'], function($router) {
 
         $router->group(['prefix' => 'bookingPal'], function () use ($router) {
 
-            $router->get('location/getlocations/{term}', ['uses' => 'BookingPalController@getLocationsByTerm']);
+            $router->get('locations/search/{term}', ['uses' => 'BookingPalController@searchLocations']); //DONE - TESTED - DOCUMENTED
 
-            $router->get('locations/getinfo/{location}', ['uses' => 'BookingPalController@getLocationsGetInfo']);
+            $router->get('locations/search/related/{term}', ['uses' => 'BookingPalController@searchRelatedLocations']); //DONE - TESTED - DOCUMENTED
 
-            $router->get('type/{type}', ['uses' => 'BookingPalController@getAllProducts']);
+            $router->get('locations/check/{term}', ['uses' => 'BookingPalController@locationsCheck']); //DONE - TESTED - DOCUMENTED
 
-            $router->get('{productId}/property/details', ['uses' => 'BookingPalController@getPropertyDetails']);
+            $router->get('locations/{term}', ['uses' => 'BookingPalController@locationsAll']); //DONE - TESTED - DOCUMENTED
 
-            $router->get('{productId}/propertysummary', ['uses' => 'BookingPalController@getPropertySummary']);
+            $router->get('locations/{locationID}/prices/from_date/{fromDate}/to_date/{toDate}', ['uses' => 'BookingPalController@locationPrices']); //DONE - TESTED - DOCUMENTED
 
-            $router->get('{productId}/quote/from_date/{fromDate}/to_date/{toDate}', ['uses' => 'BookingPalController@getQuote']);
+            $router->get('locations/{locationID}/quotes/from_date/{fromDate}/to_date/{toDate}', ['uses' => 'BookingPalController@locationQuote']); //DONE - TESTED - DOCUMENTED
 
-            $router->get('{productId}/prices/from_date/{fromDate}/to_date/{toDate}', ['uses' => 'BookingPalController@getPrices']);
+            $router->get('locations/{type}/list', ['uses' => 'BookingPalController@listLocations']); //DONE - TESTED - DOCUMENTED
 
-            $router->get('{productId}/availability/from_date/{fromDate}/to_date/{toDate}', ['uses' => 'BookingPalController@getAvailability']);
+            $router->get('locations/{locationID}/room/info', ['uses' => 'BookingPalController@locationRoomInfo']); //DONE - TESTED - - ERROR!!!!! //todo fix this
+            //[{"api_response":{"is_error":true,"message":"We can't process your request at this moment. Please contact BookingPal technical support by email at support@mybookingpal.com, or by phone at 1-949-333-0724 option #2. Thank You","messageCode":"runtime"}}].
 
-            $router->post('createBooking', ['uses' => 'BookingPalController@createBooking']);
+            $router->get('units/{locationID}/policies/channel', ['uses' => 'BookingPalController@locationPolicies']); //DONE - TESTED - ERROR!!!!! //todo fix this
+            // [{"api_response":{"is_error":true,"message":"User not found.","messageCode":""}}]
+
+            $router->get('property/details/{locationID}', ['uses' => 'BookingPalController@propertyDetails']); //DONE - TESTED - DOCUMENTED
+
+            $router->post('booking/create', ['uses' => 'BookingPalController@bookProperty']); //DONE - TESTED - DOCUMENTED
+
+            $router->get('booking/{reservationID}/reason/{reason}/amount/{amount}/cancel', ['uses' => 'BookingPalController@cancelProperty']); //DONE - TESTED - DOCUMENTED
+
+            $router->get('locations/{locationID}/availability/from_date/{fromDate}/to_date/{toDate}', ['uses' => 'BookingPalController@availabilityCalendar']); //DONE - TESTED - DOCUMENTED
+
+            $router->get('locations/{locationID}/reservation/prices/from_date/{fromDate}/to_date/{toDate}', ['uses' => 'BookingPalController@reservationPrices']); //DONE - TESTED - DOCUMENTED
+
+
+
+//            $router->get('{productId}/propertysummary', ['uses' => 'BookingPalController@getPropertySummary']);
+
 
         });
 

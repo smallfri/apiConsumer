@@ -16,36 +16,42 @@ toc_footers:
 # Info
 
 Welcome to the generated API reference.
-[Get Postman Collection](http://trialtesting.com/docs/collection.json)
+[Get Postman Collection](http://condo-world-engine.com/docs/collection.json)
 
 <!-- END_INFO -->
 
 #BookingPal
-<!-- START_fbc243ceac77903d902124abaf6709ab -->
-## Get Locations by Term
+<!-- START_7f9494f4782cdd228f9ac797e15996af -->
+## Search Locations
 
 > Example request:
 
 ```bash
-curl -X GET -G "/api/1.0.0/bookingPal/location/getlocations/{term}" 
+curl -X GET -G "/api/1.0.0/bookingPal/locations/search/{term}" 
 ```
 
 ```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "/api/1.0.0/bookingPal/location/getlocations/{term}",
-    "method": "GET",
-    "headers": {
-    }
+const url = new URL("/api/1.0.0/bookingPal/locations/search/{term}");
+
+    let params = {
+            "Search": "z5fhurCJTEnuB8ve",
+        };
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
 }
 
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
 ```
 
-> Example response:
+> Example response (200):
 
 ```json
 [
@@ -93,203 +99,1085 @@ $.ajax(settings).done(function (response) {
 ```
 
 ### HTTP Request
-`GET /api/1.0.0/bookingPal/location/getlocations/{term}`
+`GET /api/1.0.0/bookingPal/locations/search/{term}`
 
+#### Query Parameters
 
-<!-- END_fbc243ceac77903d902124abaf6709ab -->
+Parameter | Status | Description
+--------- | ------- | ------- | -----------
+    Search |  optional  | Term required
 
-<!-- START_e1437f5000caedba000d8df0b4fe97dc -->
-## Gets Locations
+<!-- END_7f9494f4782cdd228f9ac797e15996af -->
+
+<!-- START_4a50bd96105c485ea457e74c10a5be1f -->
+## Search Related Locations
 
 > Example request:
 
 ```bash
-curl -X GET -G "/api/1.0.0/bookingPal/locations/getinfo/{location}" 
+curl -X GET -G "/api/1.0.0/bookingPal/locations/search/related/{term}" 
 ```
 
 ```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "/api/1.0.0/bookingPal/locations/getinfo/{location}",
-    "method": "GET",
-    "headers": {
-    }
+const url = new URL("/api/1.0.0/bookingPal/locations/search/related/{term}");
+
+    let params = {
+            "Search": "l3RGWJuUv3Ji8wNd",
+        };
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
 }
 
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
 ```
 
-> Example response:
+> Example response (200):
+
+```json
+[
+    {
+        "locations_response": {
+            "messageCode": "",
+            "message": "",
+            "is_error": false,
+            "result_count": 1,
+            "locations": [
+                {
+                    "ID": 13,
+                    "label": "London, United Kingdom",
+                    "type": null
+                }
+            ]
+        }
+    }
+]
+```
+
+### HTTP Request
+`GET /api/1.0.0/bookingPal/locations/search/related/{term}`
+
+#### Query Parameters
+
+Parameter | Status | Description
+--------- | ------- | ------- | -----------
+    Search |  optional  | Term required
+
+<!-- END_4a50bd96105c485ea457e74c10a5be1f -->
+
+<!-- START_f6fd94a62280760caf31c56f40d74726 -->
+## Locations Check
+
+> Example request:
+
+```bash
+curl -X GET -G "/api/1.0.0/bookingPal/locations/check/{term}" 
+```
+
+```javascript
+const url = new URL("/api/1.0.0/bookingPal/locations/check/{term}");
+
+    let params = {
+            "Search": "GPTW4yWsyUnaULSO",
+        };
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+> Example response (200):
+
+```json
+[
+    {
+        "error": false,
+        "error_message": "",
+        "data": {
+            "ID": "21980"
+        }
+    }
+]
+```
+
+### HTTP Request
+`GET /api/1.0.0/bookingPal/locations/check/{term}`
+
+#### Query Parameters
+
+Parameter | Status | Description
+--------- | ------- | ------- | -----------
+    Search |  optional  | Term required
+
+<!-- END_f6fd94a62280760caf31c56f40d74726 -->
+
+<!-- START_288e31029e0eef17f8ce4c0a7366a1f6 -->
+## All Locations
+
+> Example request:
+
+```bash
+curl -X GET -G "/api/1.0.0/bookingPal/locations/{term}" 
+```
+
+```javascript
+const url = new URL("/api/1.0.0/bookingPal/locations/{term}");
+
+    let params = {
+            "Search": "DCGwk59e3LULAnVc",
+        };
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+> Example response (200):
+
+```json
+[
+    {
+        "ID": "21980",
+        "label": "Paris, France",
+        "isLocationParent": false
+    },
+    {
+        "ID": "176628",
+        "label": "Paris, ME, United States of America",
+        "isLocationParent": false
+    },
+    {
+        "ID": "92650",
+        "label": "Paris\/17, France",
+        "isLocationParent": false
+    },
+    {
+        "ID": "115148",
+        "label": "Parisot, France",
+        "isLocationParent": false
+    }
+]
+```
+
+### HTTP Request
+`GET /api/1.0.0/bookingPal/locations/{term}`
+
+#### Query Parameters
+
+Parameter | Status | Description
+--------- | ------- | ------- | -----------
+    Search |  optional  | Term required
+
+<!-- END_288e31029e0eef17f8ce4c0a7366a1f6 -->
+
+<!-- START_2e9d17d169e78ca1c0294bfab40663ad -->
+## Location Prices
+
+> Example request:
+
+```bash
+curl -X GET -G "/api/1.0.0/bookingPal/locations/{locationID}/prices/from_date/{fromDate}/to_date/{toDate}" 
+```
+
+```javascript
+const url = new URL("/api/1.0.0/bookingPal/locations/{locationID}/prices/from_date/{fromDate}/to_date/{toDate}");
+
+    let params = {
+            "LocationID": "EWnUdk2gIwrqYa0s",
+            "fromDate": "fMcyofok3yXbLp6h",
+            "toDate": "JCKmweDhiFmYoNA8",
+        };
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+> Example response (200):
 
 ```json
 {
-    "location": {
-        "locationid": null,
-        "country": null,
-        "code": null,
-        "name": null,
-        "state": null,
-        "subdivision": null,
-        "type": null,
-        "date": null,
-        "iata": null,
-        "coordinates": null,
-        "remarks": null,
-        "latitude": null,
-        "longitude": null,
-        "altitude": null,
-        "message": "Invalid or absent location ID getinfo",
-        "xsl": null,
-        "id": null
+    "ranges": {
+        "messageCode": "",
+        "propertyId": 291358,
+        "currency": "USD",
+        "message": "",
+        "is_error": false,
+        "range": [
+            {
+                "week": 25,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2019-06-16"
+            },
+            {
+                "week": 26,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2019-06-23"
+            },
+            {
+                "week": 27,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2019-06-30"
+            },
+            {
+                "week": 28,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2019-07-07"
+            },
+            {
+                "week": 29,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2019-07-14"
+            },
+            {
+                "week": 30,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2019-07-21"
+            },
+            {
+                "week": 31,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2019-07-28"
+            },
+            {
+                "week": 32,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2019-08-04"
+            },
+            {
+                "week": 33,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2019-08-11"
+            },
+            {
+                "week": 34,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2019-08-18"
+            },
+            {
+                "week": 35,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2019-08-25"
+            },
+            {
+                "week": 36,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2019-09-01"
+            },
+            {
+                "week": 37,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2019-09-08"
+            },
+            {
+                "week": 38,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2019-09-15"
+            },
+            {
+                "week": 39,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2019-09-22"
+            },
+            {
+                "week": 40,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2019-09-29"
+            },
+            {
+                "week": 41,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2019-10-06"
+            },
+            {
+                "week": 42,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2019-10-13"
+            },
+            {
+                "week": 43,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2019-10-20"
+            },
+            {
+                "week": 44,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2019-10-27"
+            },
+            {
+                "week": 45,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2019-11-03"
+            },
+            {
+                "week": 46,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2019-11-10"
+            },
+            {
+                "week": 47,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2019-11-17"
+            },
+            {
+                "week": 48,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2019-11-24"
+            },
+            {
+                "week": 49,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2019-12-01"
+            },
+            {
+                "week": 50,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2019-12-08"
+            },
+            {
+                "week": 51,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2019-12-15"
+            },
+            {
+                "week": 52,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2019-12-22"
+            },
+            {
+                "week": 1,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2019-12-29"
+            },
+            {
+                "week": 2,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2020-01-05"
+            },
+            {
+                "week": 3,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2020-01-12"
+            },
+            {
+                "week": 4,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2020-01-19"
+            },
+            {
+                "week": 5,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2020-01-26"
+            },
+            {
+                "week": 6,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2020-02-02"
+            },
+            {
+                "week": 7,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2020-02-09"
+            },
+            {
+                "week": 8,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2020-02-16"
+            },
+            {
+                "week": 9,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2020-02-23"
+            },
+            {
+                "week": 10,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2020-03-01"
+            },
+            {
+                "week": 11,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2020-03-08"
+            },
+            {
+                "week": 12,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2020-03-15"
+            },
+            {
+                "week": 13,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2020-03-22"
+            },
+            {
+                "week": 14,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2020-03-29"
+            },
+            {
+                "week": 15,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2020-04-05"
+            },
+            {
+                "week": 16,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2020-04-12"
+            },
+            {
+                "week": 17,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2020-04-19"
+            },
+            {
+                "week": 18,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2020-04-26"
+            },
+            {
+                "week": 19,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2020-05-03"
+            },
+            {
+                "week": 20,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2020-05-10"
+            },
+            {
+                "week": 21,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2020-05-17"
+            },
+            {
+                "week": 22,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2020-05-24"
+            },
+            {
+                "week": 23,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2020-05-31"
+            },
+            {
+                "week": 24,
+                "minPrice": 356,
+                "maxPrice": 356,
+                "avgPrice": 356,
+                "minstay": "4",
+                "startDate": "2020-06-07"
+            }
+        ]
     }
 }
 ```
 
 ### HTTP Request
-`GET /api/1.0.0/bookingPal/locations/getinfo/{location}`
+`GET /api/1.0.0/bookingPal/locations/{locationID}/prices/from_date/{fromDate}/to_date/{toDate}`
 
+#### Query Parameters
 
-<!-- END_e1437f5000caedba000d8df0b4fe97dc -->
+Parameter | Status | Description
+--------- | ------- | ------- | -----------
+    LocationID |  required  | 
+    fromDate |  required  | Start Date of the reservation
+    toDate |  required  | End Date of the reservation
 
-<!-- START_a710b57b4284f6b32dbfd8dc78203367 -->
-## Gets All Products
+<!-- END_2e9d17d169e78ca1c0294bfab40663ad -->
+
+<!-- START_b301d63ef776587230adcfc786282f0f -->
+## Location Quote
 
 > Example request:
 
 ```bash
-curl -X GET -G "/api/1.0.0/bookingPal/type/{type}" 
+curl -X GET -G "/api/1.0.0/bookingPal/locations/{locationID}/quotes/from_date/{fromDate}/to_date/{toDate}" 
 ```
 
 ```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "/api/1.0.0/bookingPal/type/{type}",
-    "method": "GET",
-    "headers": {
-    }
+const url = new URL("/api/1.0.0/bookingPal/locations/{locationID}/quotes/from_date/{fromDate}/to_date/{toDate}");
+
+    let params = {
+            "LocationID": "erZCUNXBlrGpTeHo",
+            "fromDate": "TZu8H5dXKFtsntzb",
+            "toDate": "VTdREoxbSMjtGlRP",
+            "children": "oYfdXVbIAeVnkk6s",
+        };
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
 }
 
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
 ```
 
-> Example response:
+> Example response (200):
 
 ```json
-{
-    "items_response": {
-        "messageCode": "",
-        "items": {
-            "entity": "Product",
-            "id": null,
-            "type": "Accommodation",
-            "message": null,
-            "item": [
+[
+    {
+        "quotes": {
+            "agentCommission": 0.0005,
+            "agentCommissionValue": 124.45,
+            "available": true,
+            "cancellationItems": [
                 {
-                    "name": "Barefoot Dreams",
-                    "id": "291355"
+                    "cancellationAmount": 0,
+                    "cancellationDate": "2019-07-06",
+                    "cancellationNights": 0,
+                    "cancellationPercentage": 100,
+                    "cancellationType": 1,
+                    "daysBeforeArrival": 14,
+                    "transactionFee": 0
                 },
                 {
-                    "name": "Beau Soleil",
-                    "id": "291356"
+                    "cancellationAmount": 0,
+                    "cancellationDate": "2019-07-15",
+                    "cancellationNights": 0,
+                    "cancellationPercentage": 80,
+                    "cancellationType": 1,
+                    "daysBeforeArrival": 5,
+                    "transactionFee": 0
                 },
                 {
-                    "name": "Bon Temps",
-                    "id": "291358"
+                    "cancellationAmount": 0,
+                    "cancellationDate": "2019-07-18",
+                    "cancellationNights": 0,
+                    "cancellationPercentage": 100,
+                    "cancellationType": 1,
+                    "daysBeforeArrival": 2,
+                    "transactionFee": 0
                 },
                 {
-                    "name": "Easy Peasy",
-                    "id": "291359"
-                },
-                {
-                    "name": "Fish House",
-                    "id": "291360"
-                },
-                {
-                    "name": "Grayt Fun",
-                    "id": "291361"
-                },
-                {
-                    "name": "Lazy Dogs",
-                    "id": "291362"
-                },
-                {
-                    "name": "Lemon Squeezy",
-                    "id": "291363"
-                },
-                {
-                    "name": "Lucky Dogs",
-                    "id": "291364"
-                },
-                {
-                    "name": "Peace by the Sea",
-                    "id": "291366"
-                },
-                {
-                    "name": "Salty Paws Bungalow",
-                    "id": "291367"
-                },
-                {
-                    "name": "Seagrove Escape",
-                    "id": "291368"
-                },
-                {
-                    "name": "Starry Nights",
-                    "id": "291369"
-                },
-                {
-                    "name": "Three Times the Fun",
-                    "id": "291370"
-                },
-                {
-                    "name": "Toes in the Sand",
-                    "id": "291371"
+                    "cancellationAmount": 0,
+                    "cancellationDate": "2019-07-20",
+                    "cancellationNights": 0,
+                    "cancellationPercentage": 0,
+                    "cancellationType": 1,
+                    "daysBeforeArrival": 0,
+                    "transactionFee": 0
                 }
             ],
-            "xsl": "'no_xsl'"
-        },
+            "currency": "USD",
+            "firstPayment": 100,
+            "fromTime": "11:30 AM",
+            "imageUrl": "https:\/\/s3.amazonaws.com\/mybookingpal\/pictures\/tst\/tst\/33175\/original_127320599.jpeg",
+            "is_error": false,
+            "message": "",
+            "messageCode": "",
+            "minstay": 4,
+            "paymentSupported": true,
+            "price": 2488.89,
+            "product_id": 291358,
+            "propertyManagerSupportCC": {
+                "supportAE": false,
+                "supportDINERSCLUB": false,
+                "supportDISCOVER": false,
+                "supportJCB": false,
+                "supportMC": true,
+                "supportVISA": true
+            },
+            "propertyName": "Bon Temps",
+            "property_currency": "USD",
+            "property_quote": 3578,
+            "quote": 3577.68,
+            "quote_details": {
+                "quoteDetails": [
+                    {
+                        "amount": 45,
+                        "currency": "USD",
+                        "description": "Rental Damage Protection Coverage ($1,500)",
+                        "entity": "FEE_MANDATORY",
+                        "included": true,
+                        "paymentInfo": "Mandatory",
+                        "text": "",
+                        "type": "GENERAL"
+                    },
+                    {
+                        "amount": 295.41,
+                        "currency": "USD",
+                        "description": "Booking fee",
+                        "entity": "FEE_MANDATORY",
+                        "included": true,
+                        "paymentInfo": "Mandatory",
+                        "text": "",
+                        "type": "GENERAL"
+                    },
+                    {
+                        "amount": 298.39,
+                        "currency": "USD",
+                        "description": "STATE TAX",
+                        "entity": "TAX",
+                        "included": true,
+                        "paymentInfo": "",
+                        "text": "",
+                        "type": ""
+                    },
+                    {
+                        "amount": 450,
+                        "currency": "USD",
+                        "description": "Cleaning Fee",
+                        "entity": "FEE_MANDATORY",
+                        "included": true,
+                        "paymentInfo": "Mandatory",
+                        "text": "",
+                        "type": "GENERAL"
+                    },
+                    {
+                        "amount": 3577.68,
+                        "currency": "USD",
+                        "description": "Total quote",
+                        "entity": "",
+                        "included": false,
+                        "paymentInfo": "",
+                        "text": "",
+                        "type": ""
+                    }
+                ]
+            },
+            "secondPayment": 3477.68,
+            "secondPaymentDate": "2019-07-06",
+            "termsLink": "https:\/\/www.google.com",
+            "toTime": "10:30 AM"
+        }
+    }
+]
+```
+
+### HTTP Request
+`GET /api/1.0.0/bookingPal/locations/{locationID}/quotes/from_date/{fromDate}/to_date/{toDate}`
+
+#### Query Parameters
+
+Parameter | Status | Description
+--------- | ------- | ------- | -----------
+    LocationID |  required  | 
+    fromDate |  required  | Start Date of the reservation
+    toDate |  required  | End Date of the reservation
+    children |  optional  | Number of adults for the reservation
+
+<!-- END_b301d63ef776587230adcfc786282f0f -->
+
+<!-- START_eea4bced28883ba83f4de68c3db474f1 -->
+## List Locations
+
+> Example request:
+
+```bash
+curl -X GET -G "/api/1.0.0/bookingPal/locations/{type}/list" 
+```
+
+```javascript
+const url = new URL("/api/1.0.0/bookingPal/locations/{type}/list");
+
+    let params = {
+            "type": "T3VgsQdCo5gxII2i",
+        };
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+> Example response (200):
+
+```json
+{
+    "availability_calendar": {
+        "is_error": false,
+        "items": [
+            {
+                "endDate": "2019-07-27",
+                "startDate": "2019-07-20"
+            }
+        ],
         "message": "",
-        "is_error": false
+        "messageCode": ""
     }
 }
 ```
 
 ### HTTP Request
-`GET /api/1.0.0/bookingPal/type/{type}`
+`GET /api/1.0.0/bookingPal/locations/{type}/list`
 
+#### Query Parameters
 
-<!-- END_a710b57b4284f6b32dbfd8dc78203367 -->
+Parameter | Status | Description
+--------- | ------- | ------- | -----------
+    type |  required  | The type of search example "Accomodation"
 
-<!-- START_8f7f08b61adddcedd667cc93bc95240d -->
-## gets MBP property details
+<!-- END_eea4bced28883ba83f4de68c3db474f1 -->
+
+<!-- START_9b3a6b89b4ab144d257927336b4c5655 -->
+## Location Room Info
 
 > Example request:
 
 ```bash
-curl -X GET -G "/api/1.0.0/bookingPal/{productId}/property/details" 
+curl -X GET -G "/api/1.0.0/bookingPal/locations/{locationID}/room/info" 
 ```
 
 ```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "/api/1.0.0/bookingPal/{productId}/property/details",
-    "method": "GET",
-    "headers": {
-    }
+const url = new URL("/api/1.0.0/bookingPal/locations/{locationID}/room/info");
+
+    let params = {
+            "LocationID": "CJxOTXVlXeX1oZNV",
+        };
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
 }
 
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
 ```
 
-> Example response:
+> Example response (200):
+
+```json
+[
+    {
+        "ID": "21980",
+        "label": "Paris, France",
+        "isLocationParent": false
+    },
+    {
+        "ID": "176628",
+        "label": "Paris, ME, United States of America",
+        "isLocationParent": false
+    },
+    {
+        "ID": "92650",
+        "label": "Paris\/17, France",
+        "isLocationParent": false
+    },
+    {
+        "ID": "115148",
+        "label": "Parisot, France",
+        "isLocationParent": false
+    }
+]
+```
+
+### HTTP Request
+`GET /api/1.0.0/bookingPal/locations/{locationID}/room/info`
+
+#### Query Parameters
+
+Parameter | Status | Description
+--------- | ------- | ------- | -----------
+    LocationID |  required  | 
+
+<!-- END_9b3a6b89b4ab144d257927336b4c5655 -->
+
+<!-- START_a9bbc900a115ff29cb91778cb5d3fac7 -->
+## Location Policies
+
+> Example request:
+
+```bash
+curl -X GET -G "/api/1.0.0/bookingPal/units/{locationID}/policies/channel" 
+```
+
+```javascript
+const url = new URL("/api/1.0.0/bookingPal/units/{locationID}/policies/channel");
+
+    let params = {
+            "LocationID": "bGRQ5LGnBqTe5BBM",
+        };
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+> Example response (200):
+
+```json
+[
+    {
+        "ID": "21980",
+        "label": "Paris, France",
+        "isLocationParent": false
+    },
+    {
+        "ID": "176628",
+        "label": "Paris, ME, United States of America",
+        "isLocationParent": false
+    },
+    {
+        "ID": "92650",
+        "label": "Paris\/17, France",
+        "isLocationParent": false
+    },
+    {
+        "ID": "115148",
+        "label": "Parisot, France",
+        "isLocationParent": false
+    }
+]
+```
+
+### HTTP Request
+`GET /api/1.0.0/bookingPal/units/{locationID}/policies/channel`
+
+#### Query Parameters
+
+Parameter | Status | Description
+--------- | ------- | ------- | -----------
+    LocationID |  required  | 
+
+<!-- END_a9bbc900a115ff29cb91778cb5d3fac7 -->
+
+<!-- START_72f767ebf4bdeb1fd742596cf443f5e8 -->
+## Property Details
+
+> Example request:
+
+```bash
+curl -X GET -G "/api/1.0.0/bookingPal/property/details/{locationID}" 
+```
+
+```javascript
+const url = new URL("/api/1.0.0/bookingPal/property/details/{locationID}");
+
+    let params = {
+            "LocationID": "MNwpxUQMwFSkvHPf",
+        };
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+> Example response (200):
 
 ```json
 {
@@ -406,315 +1294,735 @@ $.ajax(settings).done(function (response) {
 ```
 
 ### HTTP Request
-`GET /api/1.0.0/bookingPal/{productId}/property/details`
+`GET /api/1.0.0/bookingPal/property/details/{locationID}`
 
+#### Query Parameters
 
-<!-- END_8f7f08b61adddcedd667cc93bc95240d -->
+Parameter | Status | Description
+--------- | ------- | ------- | -----------
+    LocationID |  required  | 
 
-<!-- START_1e053f09dedbfd367ab2c92dee27e381 -->
-## gets MBP property summary
+<!-- END_72f767ebf4bdeb1fd742596cf443f5e8 -->
 
+<!-- START_0fb5dbfc316b765d85185fa633bccb79 -->
+## Book Property
+
+<br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small>
 > Example request:
 
 ```bash
-curl -X GET -G "/api/1.0.0/bookingPal/{productId}/propertysummary" 
+curl -X POST "/api/1.0.0/bookingPal/booking/create" \
+    -H "Content-Type: application/json" \
+    -d '{"reservation":"1054xsCslIHthdsu","pos":"QfaVabkQQf3RkEdD","productid":6,"fromdate":"n0m8woedqFxf1ir1","todate":"QMJOptIIR69AtzEb","currency":"hDxMv4xABKxlX1KU","adult":14,"child":10,"emailaddress":"9k9Rnb5o56TbBjnx","familyname":"QW1jn2HB5Xxu8lAt","firstname":"gUK57ADYVNpTYDFv","cardnumber":10,"cardmonth":2,"cardyear":14,"amount":7,"telnumber":20,"cardtype":6,"notes":"q5ZeyHNqXKGMvZQJ","cc_security_code":19,"cc_address":1,"cc_country":"dGJa85lt3k7l1hm4","cc_state":"22DKtfZbrQThZeZY","cc_zip":"HQFTm2I4UbHKli57","cc_city":"XeaGAvIC6qkpEply","cc_bdm":"nRpdcGDmvipx0HA0","cc_bdd":"8y4Kxjr0URcRIgyl","cc_bdy":"4f82iItF5Y8SEYyH"}'
+
 ```
 
 ```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "/api/1.0.0/bookingPal/{productId}/propertysummary",
-    "method": "GET",
-    "headers": {
-    }
+const url = new URL("/api/1.0.0/bookingPal/booking/create");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
 }
 
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
-```
-
-> Example response:
-
-```json
-{}
-```
-
-### HTTP Request
-`GET /api/1.0.0/bookingPal/{productId}/propertysummary`
-
-
-<!-- END_1e053f09dedbfd367ab2c92dee27e381 -->
-
-<!-- START_145b42d1f1354927d22cd3ad01aad681 -->
-## gets MBP quote
-
-> Example request:
-
-```bash
-curl -X GET -G "/api/1.0.0/bookingPal/{productId}/quote/from_date/{fromDate}/to_date/{toDate}" 
-```
-
-```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "/api/1.0.0/bookingPal/{productId}/quote/from_date/{fromDate}/to_date/{toDate}",
-    "method": "GET",
-    "headers": {
-    }
+let body = {
+    "reservation": "1054xsCslIHthdsu",
+    "pos": "QfaVabkQQf3RkEdD",
+    "productid": 6,
+    "fromdate": "n0m8woedqFxf1ir1",
+    "todate": "QMJOptIIR69AtzEb",
+    "currency": "hDxMv4xABKxlX1KU",
+    "adult": 14,
+    "child": 10,
+    "emailaddress": "9k9Rnb5o56TbBjnx",
+    "familyname": "QW1jn2HB5Xxu8lAt",
+    "firstname": "gUK57ADYVNpTYDFv",
+    "cardnumber": 10,
+    "cardmonth": 2,
+    "cardyear": 14,
+    "amount": 7,
+    "telnumber": 20,
+    "cardtype": 6,
+    "notes": "q5ZeyHNqXKGMvZQJ",
+    "cc_security_code": 19,
+    "cc_address": 1,
+    "cc_country": "dGJa85lt3k7l1hm4",
+    "cc_state": "22DKtfZbrQThZeZY",
+    "cc_zip": "HQFTm2I4UbHKli57",
+    "cc_city": "XeaGAvIC6qkpEply",
+    "cc_bdm": "nRpdcGDmvipx0HA0",
+    "cc_bdd": "8y4Kxjr0URcRIgyl",
+    "cc_bdy": "4f82iItF5Y8SEYyH"
 }
 
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
 ```
 
-> Example response:
+> Example response (200):
 
 ```json
 {
-    "quotes": {
+    "reservation_response": {
         "is_error": false,
         "message": "",
-        "messageCode": "",
-        "fromTime": "11:30 AM",
-        "toTime": "10:30 AM",
-        "currency": "USD",
-        "quote": 4856.62,
-        "price": 3555.56,
-        "termsLink": "https:\/\/www.google.com",
-        "minstay": 4,
-        "firstPayment": 100,
-        "secondPayment": 4756.62,
-        "propertyName": "Bon Temps",
-        "imageUrl": "https:\/\/s3.amazonaws.com\/mybookingpal\/pictures\/tst\/tst\/33175\/original_127320599.jpeg",
-        "agentCommission": 0.0005,
-        "agentCommissionValue": 177.78,
-        "secondPaymentDate": "2018-12-18",
-        "paymentSupported": true,
-        "quote_details": {
-            "quoteDetails": [
-                {
-                    "amount": 405.06,
-                    "currency": "USD",
-                    "description": "STATE TAX",
-                    "entity": "TAX",
-                    "included": true,
-                    "paymentInfo": "",
-                    "text": "",
-                    "type": ""
-                },
-                {
-                    "amount": 450,
-                    "currency": "USD",
-                    "description": "Cleaning Fee",
-                    "entity": "FEE_MANDATORY",
-                    "included": true,
-                    "paymentInfo": "Mandatory",
-                    "text": "",
-                    "type": "GENERAL"
-                },
-                {
-                    "amount": 45,
-                    "currency": "USD",
-                    "description": "Rental Damage Protection Coverage ($1,500)",
-                    "entity": "FEE_MANDATORY",
-                    "included": true,
-                    "paymentInfo": "Mandatory",
-                    "text": "",
-                    "type": "GENERAL"
-                },
-                {
-                    "amount": 401.01,
-                    "currency": "USD",
-                    "description": "Booking fee",
-                    "entity": "FEE_MANDATORY",
-                    "included": true,
-                    "paymentInfo": "Mandatory",
-                    "text": "",
-                    "type": "GENERAL"
-                },
-                {
-                    "amount": 4856.62,
-                    "currency": "USD",
-                    "description": "Total quote",
-                    "entity": "",
-                    "included": false,
-                    "paymentInfo": "",
-                    "text": "",
-                    "type": ""
-                }
-            ]
-        },
-        "cancellationItems": [
-            {
-                "cancellationAmount": 0,
-                "cancellationDate": "2018-12-27",
-                "cancellationNights": 0,
-                "cancellationPercentage": 80,
-                "cancellationType": 1,
-                "daysBeforeArrival": 5,
-                "transactionFee": 0
-            }
-        ],
-        "propertyManagerSupportCC": {
-            "supportAE": false,
-            "supportDINERSCLUB": false,
-            "supportDISCOVER": false,
-            "supportJCB": false,
-            "supportMC": true,
-            "supportVISA": true
-        },
-        "available": true,
-        "property_quote": 4857,
-        "property_currency": "USD",
-        "product_id": 291358
+        "downPayment": 561,
+        "propertyName": "Apartment Serviten",
+        "propertyAddress": "Vienna, Austria",
+        "propertyManagerName": "Interhome AG - Manager",
+        "propertyManagerEmail": "info@interhome.com",
+        "propertyManagerPhone": "(+41)(0)43 810 9126",
+        "reservation": {
+            "id": 13840088,
+            "checkin": "2015-10-13",
+            "checkout": "2015-10-16",
+            "currency": "USD",
+            "price": 561
+        }
     }
 }
 ```
 
 ### HTTP Request
-`GET /api/1.0.0/bookingPal/{productId}/quote/from_date/{fromDate}/to_date/{toDate}`
+`POST /api/1.0.0/bookingPal/booking/create`
 
+#### Body Parameters
 
-<!-- END_145b42d1f1354927d22cd3ad01aad681 -->
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    reservation | json |  required  | The Reservations Data.
+    pos | string |  required  | The MBP POS.
+    productid | integer |  required  | The Product ID.
+    fromdate | date |  required  | The From Date.
+    todate | date |  required  | The To Date.
+    currency | string |  required  | The Currency.
+    adult | integer |  required  | The Number of Adults.
+    child | integer |  required  | The Number of Children.
+    emailaddress | string |  required  | The Booking Customer's Email Address.
+    familyname | string |  required  | The Booking Customer's Last Name.
+    firstname | string |  required  | The Booking Customer's First Name.
+    cardnumber | integer |  required  | 
+    cardmonth | integer |  required  | 
+    cardyear | integer |  required  | 
+    amount | integer |  required  | 
+    telnumber | integer |  required  | 
+    cardtype | integer |  required  | 
+    notes | string |  optional  | 
+    cc_security_code | integer |  required  | 
+    cc_address | integer |  required  | 
+    cc_country | string |  required  | 
+    cc_state | string |  required  | 
+    cc_zip | string |  required  | 
+    cc_city | string |  required  | 
+    cc_bdm | string |  optional  | 
+    cc_bdd | string |  optional  | 
+    cc_bdy | string |  optional  | 
 
-<!-- START_7eb56078a73f9ea1424eeb28da302935 -->
-## get MBP prices
+<!-- END_0fb5dbfc316b765d85185fa633bccb79 -->
 
-> Example request:
-
-```bash
-curl -X GET -G "/api/1.0.0/bookingPal/{productId}/prices/from_date/{fromDate}/to_date/{toDate}" 
-```
-
-```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "/api/1.0.0/bookingPal/{productId}/prices/from_date/{fromDate}/to_date/{toDate}",
-    "method": "GET",
-    "headers": {
-    }
-}
-
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
-```
-
-> Example response:
-
-```json
-{}
-```
-
-### HTTP Request
-`GET /api/1.0.0/bookingPal/{productId}/prices/from_date/{fromDate}/to_date/{toDate}`
-
-
-<!-- END_7eb56078a73f9ea1424eeb28da302935 -->
-
-<!-- START_4ffacd6f4ff0283695fa3744926f1925 -->
-## gets MBP availability
+<!-- START_167171a664ff53367bffd80175d0ff24 -->
+## Cancel Property
 
 > Example request:
 
 ```bash
-curl -X GET -G "/api/1.0.0/bookingPal/{productId}/availability/from_date/{fromDate}/to_date/{toDate}" 
+curl -X GET -G "/api/1.0.0/bookingPal/booking/{reservationID}/reason/{reason}/amount/{amount}/cancel" 
 ```
 
 ```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "/api/1.0.0/bookingPal/{productId}/availability/from_date/{fromDate}/to_date/{toDate}",
-    "method": "GET",
-    "headers": {
-    }
+const url = new URL("/api/1.0.0/bookingPal/booking/{reservationID}/reason/{reason}/amount/{amount}/cancel");
+
+    let params = {
+            "reservationID": "uKXWLQXVk5sIVILh",
+            "reason": "a7XjZHOq7fnavVdQ",
+            "amount": "MXAsK87GApICzYj0",
+        };
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
 }
 
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
 ```
 
-> Example response:
+> Example response (200):
 
 ```json
 {
-    "availability_calendar": {
+    "cancel_reservation": {
         "messageCode": "",
-        "items": [
-            {
-                "startDate": "2017-11-29",
-                "endDate": "2018-07-03"
-            },
-            {
-                "startDate": "2018-07-18",
-                "endDate": "2018-07-28"
-            },
-            {
-                "startDate": "2018-08-16",
-                "endDate": "2018-08-31"
-            },
-            {
-                "startDate": "2018-10-08",
-                "endDate": "2018-10-08"
-            },
-            {
-                "startDate": "2018-10-10",
-                "endDate": "2018-10-18"
-            },
-            {
-                "startDate": "2019-03-05",
-                "endDate": "2019-03-05"
-            }
-        ],
-        "message": "",
+        "message": "Your booking was canceled or in canceling state",
         "is_error": false
     }
 }
 ```
 
 ### HTTP Request
-`GET /api/1.0.0/bookingPal/{productId}/availability/from_date/{fromDate}/to_date/{toDate}`
+`GET /api/1.0.0/bookingPal/booking/{reservationID}/reason/{reason}/amount/{amount}/cancel`
 
+#### Query Parameters
 
-<!-- END_4ffacd6f4ff0283695fa3744926f1925 -->
+Parameter | Status | Description
+--------- | ------- | ------- | -----------
+    reservationID |  optional  | 
+    reason |  optional  | [1 = I found a better place to stay; 2 = I found a better place to stay on a different website; 3 = I need to change the details of my reservation; 4 = I am no longer visiting the destination; 5 = For personal reasons]
+    amount |  optional  | 
 
-<!-- START_25ddcd2d91ae036b539e5420372b537d -->
-## Create a Booking Request
+<!-- END_167171a664ff53367bffd80175d0ff24 -->
+
+<!-- START_9a604c62f04c4aa62b7b3d1899edd736 -->
+## Availibility Calendar
 
 > Example request:
 
 ```bash
-curl -X POST "/api/1.0.0/bookingPal/createBooking" 
+curl -X GET -G "/api/1.0.0/bookingPal/locations/{locationID}/availability/from_date/{fromDate}/to_date/{toDate}" 
 ```
 
 ```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "/api/1.0.0/bookingPal/createBooking",
-    "method": "POST",
-    "headers": {
-    }
+const url = new URL("/api/1.0.0/bookingPal/locations/{locationID}/availability/from_date/{fromDate}/to_date/{toDate}");
+
+    let params = {
+            "LocationID": "w8egkdP07BR9DVGf",
+            "fromDate": "XHi10WX66PBsQ871",
+            "toDate": "w5Fv9VLXXlTZT7B6",
+        };
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
 }
 
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
 ```
 
+> Example response (200):
+
+```json
+{
+    "availability_calendar": {
+        "is_error": false,
+        "items": [
+            {
+                "endDate": "2019-07-27",
+                "startDate": "2019-07-20"
+            }
+        ],
+        "message": "",
+        "messageCode": ""
+    }
+}
+```
 
 ### HTTP Request
-`POST /api/1.0.0/bookingPal/createBooking`
+`GET /api/1.0.0/bookingPal/locations/{locationID}/availability/from_date/{fromDate}/to_date/{toDate}`
 
+#### Query Parameters
 
-<!-- END_25ddcd2d91ae036b539e5420372b537d -->
+Parameter | Status | Description
+--------- | ------- | ------- | -----------
+    LocationID |  required  | 
+    fromDate |  required  | Start Date of the reservation
+    toDate |  required  | End Date of the reservation
+
+<!-- END_9a604c62f04c4aa62b7b3d1899edd736 -->
+
+<!-- START_4a6665f9c04f98a91f4452bbf6f80ac6 -->
+## Reservation Prices
+
+> Example request:
+
+```bash
+curl -X GET -G "/api/1.0.0/bookingPal/locations/{locationID}/reservation/prices/from_date/{fromDate}/to_date/{toDate}" 
+```
+
+```javascript
+const url = new URL("/api/1.0.0/bookingPal/locations/{locationID}/reservation/prices/from_date/{fromDate}/to_date/{toDate}");
+
+    let params = {
+            "LocationID": "LZ4GLSQNzHpir3jP",
+            "fromDate": "qf3SHlZ5sCZuorWv",
+            "toDate": "rcdflkwvpCuTBFbl",
+        };
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+> Example response (200):
+
+```json
+[
+    {
+        "ranges": {
+            "currency": "USD",
+            "is_error": false,
+            "message": "",
+            "messageCode": "",
+            "propertyId": 291358,
+            "range": [
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2019-06-09",
+                    "week": 24
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2019-06-16",
+                    "week": 25
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2019-06-23",
+                    "week": 26
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2019-06-30",
+                    "week": 27
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2019-07-07",
+                    "week": 28
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2019-07-14",
+                    "week": 29
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2019-07-21",
+                    "week": 30
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2019-07-28",
+                    "week": 31
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2019-08-04",
+                    "week": 32
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2019-08-11",
+                    "week": 33
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2019-08-18",
+                    "week": 34
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2019-08-25",
+                    "week": 35
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2019-09-01",
+                    "week": 36
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2019-09-08",
+                    "week": 37
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2019-09-15",
+                    "week": 38
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2019-09-22",
+                    "week": 39
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2019-09-29",
+                    "week": 40
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2019-10-06",
+                    "week": 41
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2019-10-13",
+                    "week": 42
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2019-10-20",
+                    "week": 43
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2019-10-27",
+                    "week": 44
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2019-11-03",
+                    "week": 45
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2019-11-10",
+                    "week": 46
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2019-11-17",
+                    "week": 47
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2019-11-24",
+                    "week": 48
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2019-12-01",
+                    "week": 49
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2019-12-08",
+                    "week": 50
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2019-12-15",
+                    "week": 51
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2019-12-22",
+                    "week": 52
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2019-12-29",
+                    "week": 1
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2020-01-05",
+                    "week": 2
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2020-01-12",
+                    "week": 3
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2020-01-19",
+                    "week": 4
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2020-01-26",
+                    "week": 5
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2020-02-02",
+                    "week": 6
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2020-02-09",
+                    "week": 7
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2020-02-16",
+                    "week": 8
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2020-02-23",
+                    "week": 9
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2020-03-01",
+                    "week": 10
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2020-03-08",
+                    "week": 11
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2020-03-15",
+                    "week": 12
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2020-03-22",
+                    "week": 13
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2020-03-29",
+                    "week": 14
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2020-04-05",
+                    "week": 15
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2020-04-12",
+                    "week": 16
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2020-04-19",
+                    "week": 17
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2020-04-26",
+                    "week": 18
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2020-05-03",
+                    "week": 19
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2020-05-10",
+                    "week": 20
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2020-05-17",
+                    "week": 21
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2020-05-24",
+                    "week": 22
+                },
+                {
+                    "avgPrice": 356,
+                    "maxPrice": 356,
+                    "minPrice": 356,
+                    "minstay": "4",
+                    "startDate": "2020-05-31",
+                    "week": 23
+                }
+            ]
+        }
+    }
+]
+```
+
+### HTTP Request
+`GET /api/1.0.0/bookingPal/locations/{locationID}/reservation/prices/from_date/{fromDate}/to_date/{toDate}`
+
+#### Query Parameters
+
+Parameter | Status | Description
+--------- | ------- | ------- | -----------
+    LocationID |  required  | 
+    fromDate |  required  | Start Date of the reservation
+    toDate |  required  | End Date of the reservation
+
+<!-- END_4a6665f9c04f98a91f4452bbf6f80ac6 -->
 
 #RedAwning
 <!-- START_d1fa5583c4c11d8224a2448ec63af45a -->
@@ -727,21 +2035,22 @@ curl -X GET -G "/api/1.0.0/redAwning/listings/type/api/limit/{limit}/offset/{off
 ```
 
 ```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "/api/1.0.0/redAwning/listings/type/api/limit/{limit}/offset/{offset}",
-    "method": "GET",
-    "headers": {
-    }
+const url = new URL("/api/1.0.0/redAwning/listings/type/api/limit/{limit}/offset/{offset}");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
 }
 
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
 ```
 
-> Example response:
+> Example response (200):
 
 ```json
 {
@@ -1024,21 +2333,22 @@ curl -X GET -G "/api/1.0.0/redAwning/listings"
 ```
 
 ```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "/api/1.0.0/redAwning/listings",
-    "method": "GET",
-    "headers": {
-    }
+const url = new URL("/api/1.0.0/redAwning/listings");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
 }
 
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
 ```
 
-> Example response:
+> Example response (200):
 
 ```json
 {
@@ -1062,21 +2372,22 @@ curl -X GET -G "/api/1.0.0/redAwning/changes"
 ```
 
 ```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "/api/1.0.0/redAwning/changes",
-    "method": "GET",
-    "headers": {
-    }
+const url = new URL("/api/1.0.0/redAwning/changes");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
 }
 
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
 ```
 
-> Example response:
+> Example response (200):
 
 ```json
 {
@@ -1100,21 +2411,22 @@ curl -X GET -G "/api/1.0.0/redAwning/quote/{listingId}/from_date/{fromDate}/to_d
 ```
 
 ```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "/api/1.0.0/redAwning/quote/{listingId}/from_date/{fromDate}/to_date/{toDate}",
-    "method": "GET",
-    "headers": {
-    }
+const url = new URL("/api/1.0.0/redAwning/quote/{listingId}/from_date/{fromDate}/to_date/{toDate}");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
 }
 
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
 ```
 
-> Example response:
+> Example response (200):
 
 ```json
 {
@@ -1152,21 +2464,22 @@ curl -X GET -G "/api/1.0.0/redAwning/listings/{listingId}"
 ```
 
 ```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "/api/1.0.0/redAwning/listings/{listingId}",
-    "method": "GET",
-    "headers": {
-    }
+const url = new URL("/api/1.0.0/redAwning/listings/{listingId}");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
 }
 
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
 ```
 
-> Example response:
+> Example response (200):
 
 ```json
 {
@@ -1558,21 +2871,22 @@ curl -X GET -G "/api/1.0.0/redAwning/listings/{listingId}/status"
 ```
 
 ```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "/api/1.0.0/redAwning/listings/{listingId}/status",
-    "method": "GET",
-    "headers": {
-    }
+const url = new URL("/api/1.0.0/redAwning/listings/{listingId}/status");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
 }
 
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
 ```
 
-> Example response:
+> Example response (200):
 
 ```json
 {
@@ -1598,21 +2912,22 @@ curl -X GET -G "/api/1.0.0/redAwning/listings/{listingId}/availability"
 ```
 
 ```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "/api/1.0.0/redAwning/listings/{listingId}/availability",
-    "method": "GET",
-    "headers": {
-    }
+const url = new URL("/api/1.0.0/redAwning/listings/{listingId}/availability");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
 }
 
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
 ```
 
-> Example response:
+> Example response (200):
 
 ```json
 {
@@ -1651,21 +2966,22 @@ curl -X GET -G "/api/1.0.0/redAwning/listings/{listingId}/cico"
 ```
 
 ```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "/api/1.0.0/redAwning/listings/{listingId}/cico",
-    "method": "GET",
-    "headers": {
-    }
+const url = new URL("/api/1.0.0/redAwning/listings/{listingId}/cico");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
 }
 
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
 ```
 
-> Example response:
+> Example response (200):
 
 ```json
 [
@@ -1776,21 +3092,22 @@ curl -X GET -G "/api/1.0.0/redAwning/listings/{listingId}/cicotimes"
 ```
 
 ```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "/api/1.0.0/redAwning/listings/{listingId}/cicotimes",
-    "method": "GET",
-    "headers": {
-    }
+const url = new URL("/api/1.0.0/redAwning/listings/{listingId}/cicotimes");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
 }
 
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
 ```
 
-> Example response:
+> Example response (200):
 
 ```json
 {
@@ -1816,21 +3133,22 @@ curl -X GET -G "/api/1.0.0/redAwning/listings/{listingId}/content"
 ```
 
 ```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "/api/1.0.0/redAwning/listings/{listingId}/content",
-    "method": "GET",
-    "headers": {
-    }
+const url = new URL("/api/1.0.0/redAwning/listings/{listingId}/content");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
 }
 
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
 ```
 
-> Example response:
+> Example response (200):
 
 ```json
 [
@@ -1879,32 +3197,36 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X GET -G "/api/1.0.0/redAwning/listing-summaries"     -d "page"="10" \
-    -d "limit"="AahpLfL3MqYHm5v9" \
-    -d "index"="ZUCtfEohfaSm6YKU" 
+curl -X GET -G "/api/1.0.0/redAwning/listing-summaries" \
+    -H "Content-Type: application/json" \
+    -d '{"page":6,"limit":"Ctafscc3qNZ9J2Je","index":"sLKcbP3DbqiPCJdz"}'
+
 ```
 
 ```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "/api/1.0.0/redAwning/listing-summaries",
-    "method": "GET",
-    "data": {
-        "page": 10,
-        "limit": "AahpLfL3MqYHm5v9",
-        "index": "ZUCtfEohfaSm6YKU"
-    },
-    "headers": {
-    }
+const url = new URL("/api/1.0.0/redAwning/listing-summaries");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
 }
 
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
+let body = {
+    "page": 6,
+    "limit": "Ctafscc3qNZ9J2Je",
+    "index": "sLKcbP3DbqiPCJdz"
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+    body: body
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
 ```
 
-> Example response:
+> Example response (200):
 
 ```json
 [
@@ -1942,21 +3264,22 @@ curl -X GET -G "/api/1.0.0/redAwning/listings/{listingId}/policies"
 ```
 
 ```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "/api/1.0.0/redAwning/listings/{listingId}/policies",
-    "method": "GET",
-    "headers": {
-    }
+const url = new URL("/api/1.0.0/redAwning/listings/{listingId}/policies");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
 }
 
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
 ```
 
-> Example response:
+> Example response (200):
 
 ```json
 [
@@ -1990,21 +3313,22 @@ curl -X GET -G "/api/1.0.0/redAwning/listings/{listingId}/price"
 ```
 
 ```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "/api/1.0.0/redAwning/listings/{listingId}/price",
-    "method": "GET",
-    "headers": {
-    }
+const url = new URL("/api/1.0.0/redAwning/listings/{listingId}/price");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
 }
 
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
 ```
 
-> Example response:
+> Example response (200):
 
 ```json
 {
@@ -2044,42 +3368,41 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X POST "/api/1.0.0/redAwning/reservations"     -d "quote_id"="13" \
-    -d "first_name"="1E5jW8VnqLGa58ly" \
-    -d "last_name"="b5FqtVfu6j6mvhMb" \
-    -d "address"="[]" \
-    -d "home_phone"="dPSHPSKn6BmZioMx" \
-    -d "mobile_phone"="8bWnahK37Adky57C" \
-    -d "email"="U0cjIWDfFVqKyBts" \
-    -d "payments"="[]" 
+curl -X POST "/api/1.0.0/redAwning/reservations" \
+    -H "Content-Type: application/json" \
+    -d '{"quote_id":4,"first_name":"vGYiUvFZdblCxWGq","last_name":"YSt9pOdvfpxkzYXk","address":[],"home_phone":"KoWjFjtDveXUi5kb","mobile_phone":"qLC10IsblWbOZPcn","email":"eQPkVjmaAjyf21cE","payments":[]}'
+
 ```
 
 ```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "/api/1.0.0/redAwning/reservations",
-    "method": "POST",
-    "data": {
-        "quote_id": 13,
-        "first_name": "1E5jW8VnqLGa58ly",
-        "last_name": "b5FqtVfu6j6mvhMb",
-        "address": "[]",
-        "home_phone": "dPSHPSKn6BmZioMx",
-        "mobile_phone": "8bWnahK37Adky57C",
-        "email": "U0cjIWDfFVqKyBts",
-        "payments": "[]"
-    },
-    "headers": {
-    }
+const url = new URL("/api/1.0.0/redAwning/reservations");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
 }
 
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
+let body = {
+    "quote_id": 4,
+    "first_name": "vGYiUvFZdblCxWGq",
+    "last_name": "YSt9pOdvfpxkzYXk",
+    "address": [],
+    "home_phone": "KoWjFjtDveXUi5kb",
+    "mobile_phone": "qLC10IsblWbOZPcn",
+    "email": "eQPkVjmaAjyf21cE",
+    "payments": []
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
 ```
 
-> Example response:
+> Example response (200):
 
 ```json
 {
@@ -2142,21 +3465,22 @@ curl -X GET -G "/api/1.0.0/redAwning/reservations"
 ```
 
 ```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "/api/1.0.0/redAwning/reservations",
-    "method": "GET",
-    "headers": {
-    }
+const url = new URL("/api/1.0.0/redAwning/reservations");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
 }
 
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
 ```
 
-> Example response:
+> Example response (200):
 
 ```json
 [
@@ -2209,21 +3533,22 @@ curl -X GET -G "/api/1.0.0/redAwning/reservation/{reservationId}"
 ```
 
 ```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "/api/1.0.0/redAwning/reservation/{reservationId}",
-    "method": "GET",
-    "headers": {
-    }
+const url = new URL("/api/1.0.0/redAwning/reservation/{reservationId}");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
 }
 
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
 ```
 
-> Example response:
+> Example response (200):
 
 ```json
 {
@@ -2274,21 +3599,22 @@ curl -X DELETE "/api/1.0.0/redAwning/reservation/{reservationId}/delete"
 ```
 
 ```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "/api/1.0.0/redAwning/reservation/{reservationId}/delete",
-    "method": "DELETE",
-    "headers": {
-    }
+const url = new URL("/api/1.0.0/redAwning/reservation/{reservationId}/delete");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
 }
 
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
+fetch(url, {
+    method: "DELETE",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
 ```
 
-> Example response:
+> Example response (200):
 
 ```json
 {
@@ -2313,21 +3639,22 @@ curl -X GET -G "/api/1.0.0/redAwning/reservation/{reservationId}/status"
 ```
 
 ```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "/api/1.0.0/redAwning/reservation/{reservationId}/status",
-    "method": "GET",
-    "headers": {
-    }
+const url = new URL("/api/1.0.0/redAwning/reservation/{reservationId}/status");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
 }
 
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
 ```
 
-> Example response:
+> Example response (200):
 
 ```json
 {

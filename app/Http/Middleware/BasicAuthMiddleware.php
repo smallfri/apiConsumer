@@ -14,7 +14,7 @@ class BasicAuthMiddleware
      * @return mixed
      */
     public function handle($request, Closure $next) {
-        if($request->getUser() != 'admin' || $request->getPassword() != 'PasswordHere!') {
+        if($request->getUser() != 'apiuser@condo-world.com' || $request->getPassword() != 'api123api') {
             $headers = array('WWW-Authenticate' => 'Basic');
             return response('Admin Login', 401, $headers);
         }
